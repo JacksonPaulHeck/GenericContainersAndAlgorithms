@@ -2,30 +2,30 @@
 #include <bits/stdc++.h>
 
 template <typename T>
-class JPTreeNode{
+class AlgoTreeNode{
 	public:
 		T data;
-		struct JPTreeNode * left;
-		struct JPTreeNode * right;
+		struct AlgoTreeNode * left;
+		struct AlgoTreeNode * right;
 		int height;
-		friend std::ostream& operator<<(std::ostream& a, const JPTreeNode<T>& b){
+		friend std::ostream& operator<<(std::ostream& a, const AlgoTreeNode<T>& b){
 			a << b.data;
 			return a;
 		};
-		friend std::istream& operator>>(std::istream& a, JPTreeNode<T>& b){
+		friend std::istream& operator>>(std::istream& a, AlgoTreeNode<T>& b){
 			a >> b.data;
 			return a;
 		};
 };
 
 template <typename T>
-class JPDict{
+class AlgoDict{
 	struct Iterator {
 		using iterator_category = std::forward_iterator_tag;
 		using difference_type   = std::ptrdiff_t;
-		using value_type        = JPTreeNode<T>;
-		using pointer           = JPTreeNode<T>*;
-		using reference         = JPTreeNode<T>&;
+		using value_type        = AlgoTreeNode<T>;
+		using pointer           = AlgoTreeNode<T>*;
+		using reference         = AlgoTreeNode<T>&;
 
 		Iterator(pointer ptr) : m_ptr(ptr) {
 			fillStack(m_ptr);
@@ -73,38 +73,38 @@ class JPDict{
 			
 	};
 public:
-	JPDict();
-	~JPDict();
+	AlgoDict();
+	~AlgoDict();
 	void insert(T);
 	void print();
-	JPTreeNode<T>* search(T);
+	AlgoTreeNode<T>* search(T);
 	Iterator forward_begin() { return Iterator(root); }
     Iterator forward_end() { return Iterator(nullptr); }
 private:
-	JPTreeNode<T> * root;
+	AlgoTreeNode<T> * root;
 	bool isEmpty();
-	JPTreeNode<T>* insert(JPTreeNode<T>*, T);
-	void print(JPTreeNode<T>*, int);
-	void destroy(JPTreeNode<T>*);
+	AlgoTreeNode<T>* insert(AlgoTreeNode<T>*, T);
+	void print(AlgoTreeNode<T>*, int);
+	void destroy(AlgoTreeNode<T>*);
 	int max (int, int);
-	int balance (JPTreeNode<T>*);
-	JPTreeNode<T>* rightRotate(JPTreeNode<T> *);
-	JPTreeNode<T>* leftRotate(JPTreeNode<T> *);
-	int height(JPTreeNode<T> *);
+	int balance (AlgoTreeNode<T>*);
+	AlgoTreeNode<T>* rightRotate(AlgoTreeNode<T> *);
+	AlgoTreeNode<T>* leftRotate(AlgoTreeNode<T> *);
+	int height(AlgoTreeNode<T> *);
 };
 
 template<typename T>
-JPDict<T>::JPDict(){
+AlgoDict<T>::AlgoDict(){
 	this->root = NULL;
 }
 
 template<typename T>
-JPDict<T>::~JPDict(){
+AlgoDict<T>::~AlgoDict(){
 	destroy(root);
 }
 
 template <typename T>
-void JPDict<T>::destroy(JPTreeNode<T>* node){
+void AlgoDict<T>::destroy(AlgoTreeNode<T>* node){
 	if(node != nullptr){
 		destroy(node->left);
 		destroy(node->right);
@@ -113,17 +113,17 @@ void JPDict<T>::destroy(JPTreeNode<T>* node){
 }
 
 template <typename T>
-void JPDict<T>::insert(T dataIn){
+void AlgoDict<T>::insert(T dataIn){
 	root = insert(root, dataIn);
 }
 
 template <typename T>
-int JPDict<T>::max(int a, int b) {
+int AlgoDict<T>::max(int a, int b) {
 	return (a > b)? a : b;
 }
 
 template <typename T>
-int JPDict<T>::balance(JPTreeNode<T> * node){
+int AlgoDict<T>::balance(AlgoTreeNode<T> * node){
 	if(node == nullptr){
 		return 0;
 	}
@@ -132,9 +132,9 @@ int JPDict<T>::balance(JPTreeNode<T> * node){
 }
 
 template <typename T>
-JPTreeNode<T>* JPDict<T> :: rightRotate(JPTreeNode<T> * node){
-    JPTreeNode<T> * left = node->left;
-    JPTreeNode<T> * right = left->right;
+AlgoTreeNode<T>* AlgoDict<T> :: rightRotate(AlgoTreeNode<T> * node){
+    AlgoTreeNode<T> * left = node->left;
+    AlgoTreeNode<T> * right = left->right;
  
     // Perform rotation
     left->right = node;
@@ -148,9 +148,9 @@ JPTreeNode<T>* JPDict<T> :: rightRotate(JPTreeNode<T> * node){
 }
 
 template <typename T>
-JPTreeNode<T>* JPDict<T> :: leftRotate(JPTreeNode<T> * node){
-    JPTreeNode<T> * right = node->right;
-    JPTreeNode<T> * left = right->left;
+AlgoTreeNode<T>* AlgoDict<T> :: leftRotate(AlgoTreeNode<T> * node){
+    AlgoTreeNode<T> * right = node->right;
+    AlgoTreeNode<T> * left = right->left;
  
     // Perform rotation
     right->left = node;
@@ -164,7 +164,7 @@ JPTreeNode<T>* JPDict<T> :: leftRotate(JPTreeNode<T> * node){
 }
 
 template <typename T>
-int JPDict<T> :: height(JPTreeNode<T>* node){
+int AlgoDict<T> :: height(AlgoTreeNode<T>* node){
     if (node == nullptr){
         return 0;
 	}
@@ -172,9 +172,9 @@ int JPDict<T> :: height(JPTreeNode<T>* node){
 }
 
 template <typename T>
-JPTreeNode<T>* JPDict<T>::insert(JPTreeNode<T> * node, T dataIn){
+AlgoTreeNode<T>* AlgoDict<T>::insert(AlgoTreeNode<T> * node, T dataIn){
 	if(node == nullptr){
-		JPTreeNode<T> * temp = new JPTreeNode<T>;
+		AlgoTreeNode<T> * temp = new AlgoTreeNode<T>;
 		temp->data = dataIn;
 		temp->left = nullptr;
 		temp->right = nullptr;
@@ -209,7 +209,7 @@ JPTreeNode<T>* JPDict<T>::insert(JPTreeNode<T> * node, T dataIn){
 }
 
 template <typename T>
-void JPDict<T> :: print(){
+void AlgoDict<T> :: print(){
 	if(root == nullptr){
 		std::cout << "Nothing in tree" << std::endl;
 	}
@@ -217,7 +217,7 @@ void JPDict<T> :: print(){
 }
 
 template <typename T>
-void JPDict<T> :: print(JPTreeNode<T> * node, int space){
+void AlgoDict<T> :: print(AlgoTreeNode<T> * node, int space){
     if (node == nullptr)
         return;
     space += 10;
@@ -234,6 +234,6 @@ void JPDict<T> :: print(JPTreeNode<T> * node, int space){
 }
 
 template <typename T>
-bool JPDict<T> :: isEmpty(){
+bool AlgoDict<T> :: isEmpty(){
 	return root != nullptr;
 }
