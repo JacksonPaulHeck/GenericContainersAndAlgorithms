@@ -9,6 +9,31 @@ struct outOfRangeVector : std::exception {
 };
 
 template <typename T> class AlgoVector {
+    struct ForwardIterator {
+      using iterator_category = std::forward_iterator_tag;
+      using difference_type   = std::ptrdiff_t;
+      using value_type        = T;
+      using pointer           = T*;
+      using reference         = T&;
+      
+      ForwardIterator(pointer ptr) : m_ptr(ptr) {}
+      reference operator*() const { return *m_ptr; }
+      pointer operator->() { return m_ptr; }
+      ForwardIterator& operator++() { m_ptr++; return *this; }
+      ForwardIterator operator++(T) { ForwardIterator tmp = *this; ++(*this); return tmp; }
+      friend bool operator== (const ForwardIterator& a, const ForwardIterator& b) { return a.m_ptr == b.m_ptr; };
+      friend bool operator!= (const ForwardIterator& a, const ForwardIterator& b) { return a.m_ptr != b.m_ptr; };  
+      friend std::ostream& operator<<(std::ostream& a, const ForwardIterator& b){
+        a << *(b.m_ptr);
+        return a;
+      };
+      friend std::istream& operator>>(std::istream& a, ForwardIterator& b){
+        a >> *(b.m_ptr);
+        return a;
+      };   
+    private:
+      pointer m_ptr;
+  };
   private:
       T *data;
       int capacity;
