@@ -9,6 +9,7 @@ class AlgoListNode{
 public:
 	AlgoListNode(T);
 	T getData();
+    friend bool operator== (const AlgoListNode<T>& a, const T b) { return a.data == b; };
 	friend std::ostream& operator<<(std::ostream& a, const AlgoListNode<T>& b){
 		a << b.data;
 		return a;
