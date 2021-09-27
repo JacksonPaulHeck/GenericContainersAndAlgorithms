@@ -16,11 +16,12 @@ int main(int argc, char** argv){
         algoList.push_back(i);
         algoDict.insert(i);
     }
+    std::cout << "Find Test: " << std::endl;
+    std::cout << *algo_find(algoVector.forward_begin(), algoVector.forward_end(), 7) << std::endl;
+    std::cout << *algo_find(algoList.forward_begin(), algoList.forward_end(), 7) << std::endl;
+    std::cout << *algo_find(algoDict.forward_begin(), algoDict.forward_end(), 7) << std::endl;
 
-    std::cout << *algofind(algoVector.forward_begin(), algoVector.forward_end(), 7) << std::endl;
-    std::cout << *algofind(algoList.forward_begin(), algoList.forward_end(), 7) << std::endl;
-    std::cout << *algofind(algoDict.forward_begin(), algoDict.forward_end(), 7) << std::endl;
-
+    std::cout << "Print: " << std::endl;
     algoVector.print();
     algoList.print();
     algoDict.print();
