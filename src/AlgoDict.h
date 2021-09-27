@@ -8,6 +8,7 @@ class AlgoTreeNode{
 		struct AlgoTreeNode * left;
 		struct AlgoTreeNode * right;
 		int height;
+        friend bool operator== (const AlgoTreeNode<T>& a, const T b) { return a.data == b; };
 		friend std::ostream& operator<<(std::ostream& a, const AlgoTreeNode<T>& b){
 			a << b.data;
 			return a;
@@ -39,7 +40,7 @@ class AlgoDict{
 		}  
 		Iterator operator++(T) { Iterator tmp = *this; ++(*this); return tmp; }
 		friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
-		friend bool operator== (const Iterator& a, const T& b) { return a.m_ptr->data == b; };
+		friend bool operator== (const Iterator& a, const T b) { return a.m_ptr->data == b; };
 		friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; }; 
 		friend std::ostream& operator<<(std::ostream& a, const Iterator& b){
 			a << *(b.m_ptr);
