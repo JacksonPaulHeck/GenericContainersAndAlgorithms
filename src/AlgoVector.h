@@ -34,6 +34,51 @@ template <typename T> class AlgoVector {
     private:
       pointer m_ptr;
   };
+
+   struct RandomAccessIterator {
+      using iterator_category = std::random_access_iterator_tag;
+      using difference_type   = std::ptrdiff_t;
+      using value_type        = T;
+      using pointer           = T*;
+      using reference         = T&;
+      
+      RandomAccessIterator(pointer ptr) : m_ptr(ptr) {}
+
+      reference operator*() const { return *m_ptr; }
+      pointer operator->() { return m_ptr; }
+      
+      RandomAccessIterator& operator++() { m_ptr++; return *this; }
+      RandomAccessIterator operator++(T) { RandomAccessIterator tmp = *this; ++(*this); return tmp; }
+
+      RandomAccessIterator& operator--() { m_ptr--; return *this; }
+      RandomAccessIterator operator--(T) { RandomAccessIterator tmp = *this; --(*this); return tmp; }
+
+      RandomAccessIterator operator+(const difference_type& movement){pointer oldPtr = m_ptr;m_ptr+=movement;RandomAccessIterator temp(*this);m_ptr = oldPtr;return temp;}
+      RandomAccessIterator operator-(const difference_type& movement){pointer oldPtr = m_ptr;m_ptr-=movement;RandomAccessIterator temp(*this);m_ptr = oldPtr;return temp;}
+      difference_type operator-(const RandomAccessIterator& rawIterator){return std::distance(rawIterator.m_ptr,this->m_ptr);}
+
+      friend bool operator== (const RandomAccessIterator& a, const RandomAccessIterator& b) { return a.m_ptr == b.m_ptr; };
+      friend bool operator!= (const RandomAccessIterator& a, const RandomAccessIterator& b) { return a.m_ptr != b.m_ptr; };
+
+      RandomAccessIterator& operator=(const RandomAccessIterator& rawIterator) = default;
+      RandomAccessIterator& operator=(RandomAccessIterator* ptr){m_ptr = ptr;return (*this);}
+
+      friend std::ostream& operator<<(std::ostream& a, const RandomAccessIterator& b){
+        if(b != nullptr){
+          a << *(b.m_ptr);
+        }
+        return a;
+      };
+      friend std::istream& operator>>(std::istream& a, RandomAccessIterator& b){
+        if(b != nullptr){
+          a >> *(b.m_ptr);
+        }
+        return a;
+      };
+    private:
+      pointer m_ptr;
+  };
+  
   private:
       T *data;
       int capacity;
