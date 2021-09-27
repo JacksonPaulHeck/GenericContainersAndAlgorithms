@@ -29,6 +29,9 @@ public:
 	void push_back(T);
 	void print();
 	AlgoListNode<T>* search(T);
+    
+    Iterator forward_begin() { return Iterator(head); }
+    Iterator forward_end() { return Iterator(tail->next); }
 
 private:
 	AlgoListNode<T> *head;

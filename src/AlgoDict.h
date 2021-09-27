@@ -20,12 +20,66 @@ class JPTreeNode{
 
 template <typename T>
 class JPDict{
+	struct Iterator {
+		using iterator_category = std::forward_iterator_tag;
+		using difference_type   = std::ptrdiff_t;
+		using value_type        = JPTreeNode<T>;
+		using pointer           = JPTreeNode<T>*;
+		using reference         = JPTreeNode<T>&;
+
+		Iterator(pointer ptr) : m_ptr(ptr) {
+			fillStack(m_ptr);
+			next();
+		}
+		reference operator*() const { return (*m_ptr); }
+		pointer operator->() { return m_ptr; }
+		Iterator& operator++() {
+			next();
+			return *this; 
+		}  
+		Iterator operator++(T) { Iterator tmp = *this; ++(*this); return tmp; }
+		friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
+		friend bool operator== (const Iterator& a, const T& b) { return a.m_ptr->data == b; };
+		friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; }; 
+		friend std::ostream& operator<<(std::ostream& a, const Iterator& b){
+			a << *(b.m_ptr);
+			return a;
+		};
+		friend std::istream& operator>>(std::istream& a, Iterator& b){
+			a >> *(b.m_ptr);
+			return a;
+		};
+
+		private: 
+			pointer m_ptr;
+			std::stack<pointer> m_stack;
+
+			void fillStack(pointer node){
+				if(node != nullptr){
+					fillStack(node->right);
+					m_stack.push(node);
+					fillStack(node->left);
+				}
+				return;
+			}
+			void next() {				
+				if(!m_stack.empty()){
+					m_ptr = m_stack.top();
+					m_stack.pop();
+				}else {
+					m_ptr = nullptr;
+				}
+			}
+			
+	};
 public:
 	JPDict();
 	~JPDict();
 	void insert(T);
 	void print();
 	JPTreeNode<T>* search(T);
+	Iterator forward_begin() { return Iterator(root); }
+    Iterator forward_end() { return Iterator(nullptr); }
 private:
 	JPTreeNode<T> * root;
 	bool isEmpty();
