@@ -78,7 +78,7 @@ template <typename T> class AlgoVector {
     private:
       pointer m_ptr;
   };
-  
+
   private:
       T *data;
       int capacity;
@@ -97,6 +97,11 @@ template <typename T> class AlgoVector {
       int max_size();
       T & at(int index) const;
       void print();
+
+      RandomAccessIterator begin() { return RandomAccessIterator(&data[0]); }
+      RandomAccessIterator end() { return RandomAccessIterator(&data[capacity]); }
+      ForwardIterator forward_begin(){ return ForwardIterator(&data[0]);}
+      ForwardIterator forward_end() { return ForwardIterator(&data[capacity]);}
 };
 
 template <typename T> AlgoVector<T>::AlgoVector() { // Empty Constructor
