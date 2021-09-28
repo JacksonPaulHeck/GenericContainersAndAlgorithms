@@ -2,9 +2,38 @@
 #include "AlgoList.h"
 #include "AlgoDict.h"
 #include "Algorithm.h"
-#include <iterator>
-#include <algorithm>
 #include <ostream>
+
+
+struct Iter_greater_sort_iter{
+    template<typename RandomAccessIter>
+    bool operator()(RandomAccessIter a, RandomAccessIter b) const{
+        return a > b; 
+    }
+};
+
+struct Iter_greater_iter{
+    template<typename RandomAccessIter>
+    bool operator()(RandomAccessIter a, RandomAccessIter b) const{
+        return *a > *b; 
+    }
+};
+
+struct Iter_greater_val{
+    Iter_greater_val() = default;
+
+    Iter_greater_val(Iter_greater_iter) { }
+
+    template<typename RandomAccessIter, typename T>
+    bool operator()(RandomAccessIter iter, T& val) const{ 
+        return *iter > val;
+    }
+
+    Iter_greater_val iter_comp_val(Iter_greater_val){
+        return Iter_greater_val();
+    }
+};
+
 
 int main(int argc, char** argv){
     std::ofstream vectorOutFile("output/vector.txt");
@@ -43,6 +72,18 @@ int main(int argc, char** argv){
     findOutFile << *algo_find(algoList.forward_begin(), algoList.forward_end(), 7) << std::endl;
     findOutFile << *algo_find(algoDict.forward_begin(), algoDict.forward_end(), 7) << std::endl;
     
+    Iter_greater_sort_iter compare;
+    Iter_greater_iter comp;
+    Iter_greater_val cmp(comp);
+
+    algoVectorInsertion.print(vectorInsertionOutFile);
+    algoVectorQuick.print(vectorQuickOutFile);
+    algoVectorHeap.print(vectorHeapOutFile);
+
+    // algo_insertion_sort(algoVectorInsertion.begin(), algoVectorInsertion.end(), compare);
+    // algo_quick_sort(algoVectorQuick.begin(), algoVectorQuick.end(), compare);
+    // algo_heap_sort(algoVectorHeap.begin(), algoVectorHeap.end(), comp, cmp);
+
     algo_insertion_sort(algoVectorInsertion.begin(), algoVectorInsertion.end());
     algo_quick_sort(algoVectorQuick.begin(), algoVectorQuick.end());
     algo_heap_sort(algoVectorHeap.begin(), algoVectorHeap.end());
