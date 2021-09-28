@@ -6,7 +6,7 @@ env:
   EXE_NAME: CustomContainers
   BUILD_TYPE: Release
   INPUT_FILES:
-  OUTPUT_FILES:
+  OUTPUT_FILES: dict.txt find.txt list.txt vector_heap.txt vector_insertion.txt vector_quick.txt vector.txt
 
 jobs:
   build:
