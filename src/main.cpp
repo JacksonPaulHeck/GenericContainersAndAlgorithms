@@ -26,8 +26,8 @@ int main(int argc, char** argv){
     algoVector.print();
 
     //algo_insertion_sort(algoVector.begin(), algoVector.end());
-    algo_quick_sort(algoVector.begin(), algoVector.end());
-    //algo_heap_sort(algoVector.begin(), algoVector.end());
+    //algo_quick_sort(algoVector.begin(), algoVector.end());
+    algo_heap_sort(algoVector.begin(), algoVector.end());
 
     std::cout << "Print: " << std::endl;
     algoVector.print();

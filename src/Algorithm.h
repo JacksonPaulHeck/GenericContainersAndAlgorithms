@@ -1,5 +1,6 @@
 #include <bits/move.h>
 #include <iostream>
+#include <algorithm>
 
 template<typename ForwardIter, typename T>
 ForwardIter algo_find( ForwardIter beg, ForwardIter end, T value) {
@@ -61,4 +62,11 @@ void algo_quick_sort(RandomAccessIter begin, RandomAccessIter end) {
     algo_iter_swap(begin, middle - 1);
     algo_quick_sort(begin, middle - 1);
     algo_quick_sort(middle, end);
+}
+
+template <class RandomAccessIter>
+void algo_heap_sort(RandomAccessIter begin, RandomAccessIter end) {
+    std::make_heap(begin, end);
+    while (begin != end)
+        std::pop_heap(begin, end--);
 }
