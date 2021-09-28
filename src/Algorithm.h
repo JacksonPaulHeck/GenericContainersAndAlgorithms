@@ -47,3 +47,18 @@ void algo_insertion_sort( RandomAccessIter begin, RandomAccessIter end) {
         }
     }
 }
+
+template <typename RandomAccessIter>
+void algo_quick_sort(RandomAccessIter begin, RandomAccessIter end) {
+    if (end <= begin) return;
+    RandomAccessIter pivot = begin, middle = begin + 1;
+    for (RandomAccessIter i = begin + 1; i < end; ++i) {
+        if (*i < *pivot) {
+            algo_iter_swap(i, middle);
+            ++middle;
+        }
+    }
+    algo_iter_swap(begin, middle - 1);
+    algo_quick_sort(begin, middle - 1);
+    algo_quick_sort(middle, end);
+}
