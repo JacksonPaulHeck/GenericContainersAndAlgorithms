@@ -57,8 +57,27 @@ template <typename T> class AlgoVector {
       RandomAccessIterator operator-(const difference_type& movement){pointer oldPtr = m_ptr;m_ptr-=movement;RandomAccessIterator temp(*this);m_ptr = oldPtr;return temp;}
       difference_type operator-(const RandomAccessIterator& rawIterator){return std::distance(rawIterator.m_ptr,this->m_ptr);}
 
+      bool operator< (RandomAccessIterator& b) { 
+        if(b.m_ptr == nullptr){
+            return false;
+        }
+        return m_ptr < b.m_ptr;
+      };
+      bool operator> (RandomAccessIterator& b) { 
+        if(b.m_ptr == nullptr){
+            return false;
+        }
+        return m_ptr < b.m_ptr;
+      };
+
+    //   friend bool operator< (RandomAccessIterator& a, RandomAccessIterator& b) { return a < b; };
+    //   friend bool operator> (RandomAccessIterator& a, RandomAccessIterator& b) { return a > b; };
+
       friend bool operator== (const RandomAccessIterator& a, const RandomAccessIterator& b) { return a.m_ptr == b.m_ptr; };
       friend bool operator!= (const RandomAccessIterator& a, const RandomAccessIterator& b) { return a.m_ptr != b.m_ptr; };
+      friend bool operator<= (const RandomAccessIterator& a, const RandomAccessIterator& b) { return a.m_ptr <= b.m_ptr; };
+      friend bool operator>= (const RandomAccessIterator& a, const RandomAccessIterator& b) { return a.m_ptr >= b.m_ptr; };
+
 
       RandomAccessIterator& operator=(const RandomAccessIterator& rawIterator) = default;
       RandomAccessIterator& operator=(RandomAccessIterator* ptr){m_ptr = ptr;return (*this);}
