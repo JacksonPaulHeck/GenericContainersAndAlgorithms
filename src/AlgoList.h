@@ -1,4 +1,5 @@
 #include "AlgoListNode.h"
+#include <fstream>
 #include <iterator> // For std::forward_iterator_tag
 
 
@@ -28,6 +29,7 @@ public:
     void push_front(T);
 	void push_back(T);
 	void print();
+	void print(std::ofstream&);
 	AlgoListNode<T>* search(T);
     
     Iterator forward_begin() { return Iterator(head); }
@@ -140,6 +142,22 @@ void AlgoList<T>::print()
 			curr = curr->next;
 		}
         std::cout << curr->data << std::endl;
+	}
+}
+
+template <typename T>
+void AlgoList<T>::print(std::ofstream & file)
+{
+	if(isEmpty()){
+		file << "The AlgoList is empty" << tail;
+	
+	}else{
+		AlgoListNode<T> * curr = head;
+		while(curr->next != nullptr){
+			file << curr->data << " -> ";
+			curr = curr->next;
+		}
+        file << curr->data << std::endl;
 	}
 }
 

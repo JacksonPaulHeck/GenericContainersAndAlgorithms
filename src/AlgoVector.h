@@ -23,7 +23,7 @@ template <typename T> class AlgoVector {
       ForwardIterator operator++(T) { ForwardIterator tmp = *this; ++(*this); return tmp; }
       friend bool operator== (const ForwardIterator& a, const ForwardIterator& b) { return a.m_ptr == b.m_ptr; };
       friend bool operator!= (const ForwardIterator& a, const ForwardIterator& b) { return a.m_ptr != b.m_ptr; };  
-      friend std::ostream& operator<<(std::ostream& a, const ForwardIterator& b){
+      friend std::ofstream& operator<<(std::ofstream& a, const ForwardIterator& b){
         a << *(b.m_ptr);
         return a;
       };
@@ -116,6 +116,7 @@ template <typename T> class AlgoVector {
       int max_size();
       T & at(int index) const;
       void print();
+      void print(std::ofstream&);
 
       RandomAccessIterator begin() { return RandomAccessIterator(&data[0]); }
       RandomAccessIterator end() { return RandomAccessIterator(&data[capacity]); }
@@ -239,6 +240,14 @@ void AlgoVector<T>::print(){
     std::cout << data[i] << " ";
   }
   std::cout << data[capacity-1] << std::endl;
+}
+
+template <typename T>
+void AlgoVector<T>::print(std::ofstream & file){
+  for(int i = 0; i < capacity-1; i++){
+    file << data[i] << " ";
+  }
+  file << data[capacity-1] << std::endl;
 }
 
 #endif
