@@ -156,5 +156,5 @@ template <class RandomAccessIter>
 void algo_heap_sort(RandomAccessIter begin, RandomAccessIter end) {
     make_heap(begin, end);
     while (begin != end)
-        std::pop_heap(begin, end--);
+        pop_heap(begin, end--);
 }
