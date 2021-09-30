@@ -1,10 +1,21 @@
-#include "AlgoListNode.h"
+//#include "AlgoListNode.h"
+#include <cstddef>
 #include <fstream>
 #include <iterator> // For std::forward_iterator_tag
 
 
 template <typename T>
+struct AlgoListNode {
+    T data;
+    AlgoListNode *next;
+};
+
+template <typename T> 
+class AlgoStack;
+
+template <typename T>
 class AlgoList{
+	friend class AlgoStack<T>;
     struct Iterator {
       using iterator_category = std::forward_iterator_tag;
       using difference_type   = std::ptrdiff_t;
@@ -28,6 +39,10 @@ public:
 	void insert(T);
     void push_front(T);
 	void push_back(T);
+	T pop_front();
+	T pop_back();
+	T & peek_front();
+	T & peek_back();
 	void print();
 	void print(std::ofstream&);
 	AlgoListNode<T>* search(T);
@@ -38,7 +53,7 @@ public:
 private:
 	AlgoListNode<T> *head;
 	AlgoListNode<T> *tail;
-	bool isEmpty();
+	bool empty();
 };
 
 
@@ -51,7 +66,7 @@ AlgoList<T>::AlgoList(){
 
 template <typename T>
 AlgoList<T>::~AlgoList(){
-	if (!isEmpty()){    
+	if (!empty()){    
       AlgoListNode<T> *curr = head;
       AlgoListNode<T> *temp;
 
@@ -64,34 +79,27 @@ AlgoList<T>::~AlgoList(){
 }
 
 template <typename T>
-bool AlgoList<T>::isEmpty()
-{
-	if(head == NULL && tail == NULL){
-		return 1;
-    }
-	else{
-		return 0;
-    }
+bool AlgoList<T>::empty(){
+	std::cout << "EMPTY FUNCTION CALL --------------------------- EMPTY FUNCTION CALL: "<<std::endl;
+	return head->next == nullptr;
 }
 
 template <typename T>
 void AlgoList<T>::push_front(T dataIn)
 {
-	if(isEmpty()){
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		head = temp;
-		tail = temp;
-	}else{
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		temp->next = head;
-		head = temp;
-	}
+		AlgoListNode<T> * node = new AlgoListNode<T>();
+		node->data = dataIn;
+		node->next = this->head;
+		if (empty()) {
+			this->tail = node;
+		}
+		this->head = node;
 }
 
 template <typename T>
 void AlgoList<T>::push_back(T dataIn)
 {
-	if(isEmpty()){
+	if(empty()){
 		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
 		head = temp;
 		tail = temp;
@@ -103,8 +111,36 @@ void AlgoList<T>::push_back(T dataIn)
 }
 
 template <typename T>
+T & AlgoList<T>::peek_back(){
+	return tail->data;
+}
+
+template <typename T>
+T & AlgoList<T>::peek_front(){
+	return head->data;
+}
+
+template <typename T>
+T AlgoList<T>::pop_back(){
+	AlgoListNode<T>* temp = head;
+	head = head->next;
+	T tmp(temp->data);
+	delete temp;
+	return tmp;
+}
+
+template <typename T>
+T AlgoList<T>::pop_front(){
+	AlgoListNode<T>* temp = head;
+	head = head->next;
+	T tmp(temp->data);
+	delete temp;
+	return tmp;
+}
+
+template <typename T>
 void AlgoList<T>::insert(T dataIn){
-	if(isEmpty()){
+	if(empty()){
 		push_front(dataIn);
 	}else{
 		if(dataIn < head->data){
@@ -132,8 +168,8 @@ void AlgoList<T>::insert(T dataIn){
 template <typename T>
 void AlgoList<T>::print()
 {
-	if(isEmpty()){
-		std::cout << "The AlgoList is empty" << tail;
+	if(empty()){
+		std::cout << "The AlgoList is empty" << std::endl;
 	
 	}else{
 		AlgoListNode<T> * curr = head;
@@ -148,7 +184,7 @@ void AlgoList<T>::print()
 template <typename T>
 void AlgoList<T>::print(std::ofstream & file)
 {
-	if(isEmpty()){
+	if(empty()){
 		file << "The AlgoList is empty" << tail;
 	
 	}else{

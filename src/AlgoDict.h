@@ -1,5 +1,5 @@
 #include <cstddef>
-#include <bits/stdc++.h>
+#include "AlgoStack.h"
 
 template <typename T>
 class AlgoTreeNode{
@@ -53,7 +53,7 @@ class AlgoDict{
 
 		private: 
 			pointer m_ptr;
-			std::stack<pointer> m_stack;
+			AlgoStack<pointer> m_stack;
 
 			void fillStack(pointer node){
 				if(node != nullptr){
@@ -80,8 +80,8 @@ public:
 	void print();
 	void print(std::ofstream &);
 	AlgoTreeNode<T>* search(T);
-	Iterator forward_begin() { return Iterator(root); }
-    Iterator forward_end() { return Iterator(nullptr); }
+	Iterator begin() { return Iterator(root); }
+    Iterator end() { return Iterator(nullptr); }
 private:
 	AlgoTreeNode<T> * root;
 	bool isEmpty();

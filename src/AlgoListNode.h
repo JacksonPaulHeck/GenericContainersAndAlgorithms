@@ -7,8 +7,10 @@ template <typename T>
 class AlgoListNode{
 	friend class AlgoList<T>;
 public:
+	AlgoListNode();
 	AlgoListNode(T);
-	T getData();
+	~AlgoListNode();
+
     friend bool operator== (const AlgoListNode<T>& a, const T b) { return a.data == b; };
 	friend std::ostream& operator<<(std::ostream& a, const AlgoListNode<T>& b){
 		a << b.data;
@@ -24,7 +26,17 @@ private:
 };
 
 template <typename T>
+AlgoListNode<T>::AlgoListNode(){
+	data = NULL;
+	next = nullptr;
+}
+
+template <typename T>
 AlgoListNode<T>::AlgoListNode(T dataIn){
 	data = dataIn;
 	next = nullptr;
+}
+
+template <typename T>
+AlgoListNode<T>::~AlgoListNode(){
 }
