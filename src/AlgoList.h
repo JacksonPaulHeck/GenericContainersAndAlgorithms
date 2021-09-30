@@ -1,14 +1,14 @@
-//#include "AlgoListNode.h"
+#include "AlgoListNode.h"
 #include <cstddef>
 #include <fstream>
 #include <iterator> // For std::forward_iterator_tag
 
 
-template <typename T>
-struct AlgoListNode {
-    T data;
-    AlgoListNode *next;
-};
+// template <typename T>
+// struct AlgoListNode {
+//     T data;
+//     AlgoListNode *next;
+// };
 
 template <typename T> 
 class AlgoStack;
@@ -39,8 +39,8 @@ public:
 	void insert(T);
     void push_front(T);
 	void push_back(T);
-	T pop_front();
-	T pop_back();
+	void pop_front();
+	void pop_back();
 	T & peek_front();
 	T & peek_back();
 	void print();
@@ -51,8 +51,8 @@ public:
     Iterator forward_end() { return Iterator(tail->next); }
 
 private:
-	AlgoListNode<T> *head;
-	AlgoListNode<T> *tail;
+	AlgoListNode<T> * head;
+	AlgoListNode<T> * tail;
 	bool empty();
 };
 
@@ -60,8 +60,8 @@ private:
 
 template <typename T>
 AlgoList<T>::AlgoList(){
-	head = NULL;
-	tail = NULL;
+	head = nullptr;
+	tail = nullptr;
 }
 
 template <typename T>
@@ -80,8 +80,7 @@ AlgoList<T>::~AlgoList(){
 
 template <typename T>
 bool AlgoList<T>::empty(){
-	std::cout << "EMPTY FUNCTION CALL --------------------------- EMPTY FUNCTION CALL: "<<std::endl;
-	return head->next == nullptr;
+	return this->head == nullptr;
 }
 
 template <typename T>
@@ -105,8 +104,8 @@ void AlgoList<T>::push_back(T dataIn)
 		tail = temp;
 	}else{
 		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		tail->next = temp;
 		tail = temp;
+		tail->next = nullptr;
 	}
 }
 
@@ -121,21 +120,17 @@ T & AlgoList<T>::peek_front(){
 }
 
 template <typename T>
-T AlgoList<T>::pop_back(){
+void AlgoList<T>::pop_back(){
 	AlgoListNode<T>* temp = head;
 	head = head->next;
-	T tmp(temp->data);
 	delete temp;
-	return tmp;
 }
 
 template <typename T>
-T AlgoList<T>::pop_front(){
+void AlgoList<T>::pop_front(){
 	AlgoListNode<T>* temp = head;
 	head = head->next;
-	T tmp(temp->data);
 	delete temp;
-	return tmp;
 }
 
 template <typename T>
@@ -204,7 +199,7 @@ AlgoListNode<T>* AlgoList<T>::search(T key){
 
 	node = head;
 
-	while((!found) && (node != NULL)){
+	while((!found) && (node != nullptr)){
 		if(node->data == key){
 			found = true;
         }

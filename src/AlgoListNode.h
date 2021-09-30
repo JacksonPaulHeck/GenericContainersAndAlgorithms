@@ -3,9 +3,13 @@
 template <typename T> 
 class AlgoList;
 
+template <typename T> 
+class AlgoStack;
+
 template <typename T>
 class AlgoListNode{
 	friend class AlgoList<T>;
+	friend class AlgoStack<T>;
 public:
 	AlgoListNode();
 	AlgoListNode(T);
@@ -27,7 +31,6 @@ private:
 
 template <typename T>
 AlgoListNode<T>::AlgoListNode(){
-	data = NULL;
 	next = nullptr;
 }
 

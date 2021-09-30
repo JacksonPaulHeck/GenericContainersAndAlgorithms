@@ -63,7 +63,7 @@ class AlgoDict{
 				}
 				return;
 			}
-			void next() {				
+			void next() {
 				if(!m_stack.empty()){
 					m_ptr = m_stack.top();
 					m_stack.pop();
@@ -98,7 +98,7 @@ private:
 
 template<typename T>
 AlgoDict<T>::AlgoDict(){
-	this->root = NULL;
+	this->root = nullptr;
 }
 
 template<typename T>

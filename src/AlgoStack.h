@@ -12,7 +12,7 @@ public:
     bool empty();
     void clear();
     void push(const T &);
-    T pop();
+    void pop();
     T & top();
     int size() const;
     void print();
@@ -30,7 +30,7 @@ AlgoStack<T>::~AlgoStack() {
 }
 template<typename T>
 bool AlgoStack<T>::empty(){
-    return data->empty();
+    return length == 0;
 }
 
 template<typename T>
@@ -43,23 +43,20 @@ void AlgoStack<T>::clear() {
 
 template<typename T>
 void AlgoStack<T>::push(const T &it) {
-    data->push_front(it);
+    data->insert(it);
     length++;
 }
 
 template<typename T>
-T AlgoStack<T>::pop() {
-    std::cout << "POP FUNCTION CALL --------------------------- POP FUNCTION CALL " << std::endl << "\t" << data->empty() << std::endl;
+void AlgoStack<T>::pop() {
     if (!data->empty()) {
+        data->pop_front();
         length--;
-        return data->pop_front();
     }
-    return T();
 }
 
 template<typename T>
 T & AlgoStack<T>::top() {
-    std::cout << "TOP FUNCTION CALL --------------------------- TOP FUNCTION CALL " << std::endl << "\t"<< data->empty() << std::endl;
     return data->peek_front();
 }
 

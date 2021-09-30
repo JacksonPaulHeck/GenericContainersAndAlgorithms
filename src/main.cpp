@@ -43,7 +43,7 @@ int main(int argc, char** argv){
     // std::ofstream vectorHeapOutFile("output/vector_heap.txt");
     // std::ofstream listOutFile("output/list.txt");
     std::ofstream dictOutFile("output/dict.txt");
-    std::ofstream findOutFile("output/find.txt");
+    // std::ofstream findOutFile("output/find.txt");
     
 
     // //std::list<int> vasdf;
@@ -58,7 +58,7 @@ int main(int argc, char** argv){
     AlgoDict<int> algoDict;
 
     // testing algoVector and algoList
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < 3; i++){
         // algoList.push_back(i);
         algoDict.insert(i);
         // algoVector.push_back(i);
@@ -78,18 +78,16 @@ int main(int argc, char** argv){
 
     auto beg = algoDict.begin();
     auto end = algoDict.end();
-    int value = 0;
+    int value = 1;
 
     while(beg != end) {
+        std::cout << "EQUALS:" << *beg << std::endl;
         beg++;
-        if(*beg == value){
-            std::cout << "EQUALS" << std::endl;
-        }
     }
 
-    // for(auto i : algoDict){
-    //     std::cout << i << std::endl;
-    // }
+    //for(auto i : algoDict){
+        //std::cout << i << std::endl;
+    //}
     // Iter_greater_sort_iter compare;
     // Iter_greater_iter comp;
     // Iter_greater_val cmp(comp);
@@ -113,6 +111,19 @@ int main(int argc, char** argv){
     // algoList.print(listOutFile);
     //std::cout << "Test" << std::endl;
     algoDict.print(dictOutFile);
+
+    // AlgoStack<int> algoStack;
+
+    // algoStack.push(0);
+    // algoStack.push(1);
+    // algoStack.push(2);
+    // algoStack.push(3);
+    // algoStack.push(4);
+
+    // while(!algoStack.empty()){
+    //     std::cout << algoStack.top() << std::endl;
+    //     algoStack.pop();
+    // }
 
     return 0;
 }
