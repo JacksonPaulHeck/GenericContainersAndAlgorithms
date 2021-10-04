@@ -1,5 +1,6 @@
 #include <cstddef>
 #include "AlgoStack.h"
+#include <stack>
 
 template <typename T>
 class AlgoTreeNode{
@@ -9,14 +10,14 @@ class AlgoTreeNode{
 		struct AlgoTreeNode * right;
 		int height;
         friend bool operator== (const AlgoTreeNode<T>& a, const T b) { return a.data == b; };
-		friend std::ostream& operator<<(std::ostream& a, const AlgoTreeNode<T>& b){
-			a << b.data;
-			return a;
-		};
-		friend std::istream& operator>>(std::istream& a, AlgoTreeNode<T>& b){
-			a >> b.data;
-			return a;
-		};
+		// friend std::ostream& operator<<(std::ostream& a, const AlgoTreeNode<T>& b){
+		// 	a << b.data;
+		// 	return a;
+		// };
+		// friend std::istream& operator>>(std::istream& a, AlgoTreeNode<T>& b){
+		// 	a >> b.data;
+		// 	return a;
+		// };
 };
 
 template <typename T>
@@ -38,7 +39,11 @@ class AlgoDict{
 			next();
 			return *this; 
 		}  
-		Iterator operator++(T) { Iterator tmp = *this; ++(*this); return tmp; }
+		Iterator & operator++(T) {
+			next();
+			return *this; 
+		}
+
 		friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
 		friend bool operator== (const Iterator& a, const T b) { return a.m_ptr->data == b; };
 		friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; }; 
@@ -50,6 +55,9 @@ class AlgoDict{
 			a >> *(b.m_ptr);
 			return a;
 		};
+		void print(){
+			m_stack.print();
+		}
 
 		private: 
 			pointer m_ptr;
@@ -66,7 +74,7 @@ class AlgoDict{
 			void next() {
 				if(!m_stack.empty()){
 					m_ptr = m_stack.top();
-					m_stack.pop();
+					m_stack.pop();					
 				}else {
 					m_ptr = nullptr;
 				}

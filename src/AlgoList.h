@@ -2,12 +2,20 @@
 #include <cstddef>
 #include <fstream>
 #include <iterator> // For std::forward_iterator_tag
+//#include <iostream>
 
 
 // template <typename T>
 // struct AlgoListNode {
-//     T data;
+//     T * data;
 //     AlgoListNode *next;
+// 	AlgoListNode(){
+// 		next = nullptr;
+// 	}
+// 	AlgoListNode(T dataIn){
+// 		data = dataIn;
+// 		next = nullptr;
+// 	}
 // };
 
 template <typename T> 
@@ -35,7 +43,7 @@ class AlgoList{
   };
 public:
 	AlgoList();
-	~AlgoList();
+	//~AlgoList();
 	void insert(T);
     void push_front(T);
 	void push_back(T);
@@ -46,14 +54,14 @@ public:
 	void print();
 	void print(std::ofstream&);
 	AlgoListNode<T>* search(T);
+	bool empty();
     
     Iterator forward_begin() { return Iterator(head); }
-    Iterator forward_end() { return Iterator(tail->next); }
+    Iterator forward_end() { return Iterator(tail); }
 
 private:
 	AlgoListNode<T> * head;
 	AlgoListNode<T> * tail;
-	bool empty();
 };
 
 
@@ -64,19 +72,10 @@ AlgoList<T>::AlgoList(){
 	tail = nullptr;
 }
 
-template <typename T>
-AlgoList<T>::~AlgoList(){
-	if (!empty()){    
-      AlgoListNode<T> *curr = head;
-      AlgoListNode<T> *temp;
+// template <typename T>
+// AlgoList<T>::~AlgoList(){
 
-      while ( curr != 0 ){  
-         temp = curr;
-         curr = curr->next;
-         delete temp;
-      }
-   }
-}
+// }
 
 template <typename T>
 bool AlgoList<T>::empty(){
@@ -86,8 +85,7 @@ bool AlgoList<T>::empty(){
 template <typename T>
 void AlgoList<T>::push_front(T dataIn)
 {
-		AlgoListNode<T> * node = new AlgoListNode<T>();
-		node->data = dataIn;
+		AlgoListNode<T> * node = new AlgoListNode<T>(dataIn);
 		node->next = this->head;
 		if (empty()) {
 			this->tail = node;
@@ -98,15 +96,17 @@ void AlgoList<T>::push_front(T dataIn)
 template <typename T>
 void AlgoList<T>::push_back(T dataIn)
 {
-	if(empty()){
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		head = temp;
-		tail = temp;
-	}else{
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		tail = temp;
-		tail->next = nullptr;
-	}
+		AlgoListNode<T> * node = new AlgoListNode<T>(dataIn);
+		if(empty()){
+			this->head = node;
+			return;
+		}
+		AlgoListNode<T> * curr = head;
+		while(curr && curr->next){
+			curr = curr->next;
+		}
+
+		curr->next = node;
 }
 
 template <typename T>
@@ -121,7 +121,7 @@ T & AlgoList<T>::peek_front(){
 
 template <typename T>
 void AlgoList<T>::pop_back(){
-	AlgoListNode<T>* temp = head;
+	AlgoListNode<T>* temp = tail;
 	head = head->next;
 	delete temp;
 }

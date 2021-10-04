@@ -13,7 +13,7 @@ class AlgoListNode{
 public:
 	AlgoListNode();
 	AlgoListNode(T);
-	~AlgoListNode();
+	AlgoListNode(AlgoListNode<T> &);
 
     friend bool operator== (const AlgoListNode<T>& a, const T b) { return a.data == b; };
 	friend std::ostream& operator<<(std::ostream& a, const AlgoListNode<T>& b){
@@ -41,5 +41,7 @@ AlgoListNode<T>::AlgoListNode(T dataIn){
 }
 
 template <typename T>
-AlgoListNode<T>::~AlgoListNode(){
+AlgoListNode<T>::AlgoListNode(AlgoListNode<T> & copy){
+	data = copy.data;
+	next = copy.next;
 }

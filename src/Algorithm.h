@@ -3,14 +3,14 @@
 #include <algorithm>
 
 template<typename ForwardIter, typename T>
-ForwardIter algo_find( ForwardIter beg, ForwardIter end, T value) {
+bool algo_find( ForwardIter beg, ForwardIter end, T value) {
     while(beg != end) {
         if(*beg == value){
-            return beg;
+            return true;
         }
-        beg++;
+        ++beg;
     }
-    return beg;
+    return false;
 }
 
 template<typename ForwardIter, typename T, typename Compare>
