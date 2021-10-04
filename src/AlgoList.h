@@ -43,7 +43,7 @@ class AlgoList{
   };
 public:
 	AlgoList();
-	//~AlgoList();
+	~AlgoList();
 	void insert(T);
     void push_front(T);
 	void push_back(T);
@@ -72,10 +72,15 @@ AlgoList<T>::AlgoList(){
 	tail = nullptr;
 }
 
-// template <typename T>
-// AlgoList<T>::~AlgoList(){
-
-// }
+template <typename T>
+AlgoList<T>::~AlgoList(){
+	AlgoListNode<T> * curr = head;
+	while(head != nullptr){
+		head = head->next;
+		delete curr;
+		curr = head;
+	}
+}
 
 template <typename T>
 bool AlgoList<T>::empty(){
@@ -83,8 +88,7 @@ bool AlgoList<T>::empty(){
 }
 
 template <typename T>
-void AlgoList<T>::push_front(T dataIn)
-{
+void AlgoList<T>::push_front(T dataIn){
 		AlgoListNode<T> * node = new AlgoListNode<T>(dataIn);
 		node->next = this->head;
 		if (empty()) {
@@ -94,8 +98,7 @@ void AlgoList<T>::push_front(T dataIn)
 }
 
 template <typename T>
-void AlgoList<T>::push_back(T dataIn)
-{
+void AlgoList<T>::push_back(T dataIn){
 		AlgoListNode<T> * node = new AlgoListNode<T>(dataIn);
 		if(empty()){
 			this->head = node;

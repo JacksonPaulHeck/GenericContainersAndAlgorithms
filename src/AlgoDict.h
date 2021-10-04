@@ -10,14 +10,14 @@ class AlgoTreeNode{
 		struct AlgoTreeNode * right;
 		int height;
         friend bool operator== (const AlgoTreeNode<T>& a, const T b) { return a.data == b; };
-		// friend std::ostream& operator<<(std::ostream& a, const AlgoTreeNode<T>& b){
-		// 	a << b.data;
-		// 	return a;
-		// };
-		// friend std::istream& operator>>(std::istream& a, AlgoTreeNode<T>& b){
-		// 	a >> b.data;
-		// 	return a;
-		// };
+		friend std::ostream& operator<<(std::ostream& a, const AlgoTreeNode<T>& b){
+			a << b.data;
+			return a;
+		};
+		friend std::istream& operator>>(std::istream& a, AlgoTreeNode<T>& b){
+			a >> b.data;
+			return a;
+		};
 };
 
 template <typename T>
