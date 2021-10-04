@@ -1,5 +1,6 @@
 #include <cstddef>
-#include <bits/stdc++.h>
+#include "AlgoStack.h"
+#include <stack>
 
 template <typename T>
 class AlgoTreeNode{
@@ -38,7 +39,11 @@ class AlgoDict{
 			next();
 			return *this; 
 		}  
-		Iterator operator++(T) { Iterator tmp = *this; ++(*this); return tmp; }
+		Iterator & operator++(T) {
+			next();
+			return *this; 
+		}
+
 		friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
 		friend bool operator== (const Iterator& a, const T b) { return a.m_ptr->data == b; };
 		friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; }; 
@@ -50,10 +55,13 @@ class AlgoDict{
 			a >> *(b.m_ptr);
 			return a;
 		};
+		void print(){
+			m_stack.print();
+		}
 
 		private: 
 			pointer m_ptr;
-			std::stack<pointer> m_stack;
+			AlgoStack<pointer> m_stack;
 
 			void fillStack(pointer node){
 				if(node != nullptr){
@@ -63,10 +71,10 @@ class AlgoDict{
 				}
 				return;
 			}
-			void next() {				
+			void next() {
 				if(!m_stack.empty()){
 					m_ptr = m_stack.top();
-					m_stack.pop();
+					m_stack.pop();					
 				}else {
 					m_ptr = nullptr;
 				}
@@ -80,8 +88,8 @@ public:
 	void print();
 	void print(std::ofstream &);
 	AlgoTreeNode<T>* search(T);
-	Iterator forward_begin() { return Iterator(root); }
-    Iterator forward_end() { return Iterator(nullptr); }
+	Iterator begin() { return Iterator(root); }
+    Iterator end() { return Iterator(nullptr); }
 private:
 	AlgoTreeNode<T> * root;
 	bool isEmpty();
@@ -98,7 +106,7 @@ private:
 
 template<typename T>
 AlgoDict<T>::AlgoDict(){
-	this->root = NULL;
+	this->root = nullptr;
 }
 
 template<typename T>

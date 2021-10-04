@@ -1,10 +1,29 @@
 #include "AlgoListNode.h"
+#include <cstddef>
 #include <fstream>
 #include <iterator> // For std::forward_iterator_tag
+//#include <iostream>
 
+
+// template <typename T>
+// struct AlgoListNode {
+//     T * data;
+//     AlgoListNode *next;
+// 	AlgoListNode(){
+// 		next = nullptr;
+// 	}
+// 	AlgoListNode(T dataIn){
+// 		data = dataIn;
+// 		next = nullptr;
+// 	}
+// };
+
+template <typename T> 
+class AlgoStack;
 
 template <typename T>
 class AlgoList{
+	friend class AlgoStack<T>;
     struct Iterator {
       using iterator_category = std::forward_iterator_tag;
       using difference_type   = std::ptrdiff_t;
@@ -28,83 +47,98 @@ public:
 	void insert(T);
     void push_front(T);
 	void push_back(T);
+	void pop_front();
+	void pop_back();
+	T & peek_front();
+	T & peek_back();
 	void print();
 	void print(std::ofstream&);
 	AlgoListNode<T>* search(T);
+	bool empty();
     
     Iterator forward_begin() { return Iterator(head); }
-    Iterator forward_end() { return Iterator(tail->next); }
+    Iterator forward_end() { return Iterator(tail); }
 
 private:
-	AlgoListNode<T> *head;
-	AlgoListNode<T> *tail;
-	bool isEmpty();
+	AlgoListNode<T> * head;
+	AlgoListNode<T> * tail;
 };
 
 
 
 template <typename T>
 AlgoList<T>::AlgoList(){
-	head = NULL;
-	tail = NULL;
+	head = nullptr;
+	tail = nullptr;
 }
 
 template <typename T>
 AlgoList<T>::~AlgoList(){
-	if (!isEmpty()){    
-      AlgoListNode<T> *curr = head;
-      AlgoListNode<T> *temp;
-
-      while ( curr != 0 ){  
-         temp = curr;
-         curr = curr->next;
-         delete temp;
-      }
-   }
-}
-
-template <typename T>
-bool AlgoList<T>::isEmpty()
-{
-	if(head == NULL && tail == NULL){
-		return 1;
-    }
-	else{
-		return 0;
-    }
-}
-
-template <typename T>
-void AlgoList<T>::push_front(T dataIn)
-{
-	if(isEmpty()){
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		head = temp;
-		tail = temp;
-	}else{
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		temp->next = head;
-		head = temp;
+	AlgoListNode<T> * curr = head;
+	while(head != nullptr){
+		head = head->next;
+		delete curr;
+		curr = head;
 	}
 }
 
 template <typename T>
-void AlgoList<T>::push_back(T dataIn)
-{
-	if(isEmpty()){
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		head = temp;
-		tail = temp;
-	}else{
-		AlgoListNode<T> * temp = new AlgoListNode<T>(dataIn);
-		tail->next = temp;
-		tail = temp;
-	}
+bool AlgoList<T>::empty(){
+	return this->head == nullptr;
+}
+
+template <typename T>
+void AlgoList<T>::push_front(T dataIn){
+		AlgoListNode<T> * node = new AlgoListNode<T>(dataIn);
+		node->next = this->head;
+		if (empty()) {
+			this->tail = node;
+		}
+		this->head = node;
+}
+
+template <typename T>
+void AlgoList<T>::push_back(T dataIn){
+		AlgoListNode<T> * node = new AlgoListNode<T>(dataIn);
+		if(empty()){
+			this->head = node;
+			return;
+		}
+		AlgoListNode<T> * curr = head;
+		while(curr && curr->next){
+			curr = curr->next;
+		}
+
+		curr->next = node;
+}
+
+template <typename T>
+T & AlgoList<T>::peek_back(){
+	return tail->data;
+}
+
+template <typename T>
+T & AlgoList<T>::peek_front(){
+	return head->data;
+}
+
+template <typename T>
+void AlgoList<T>::pop_back(){
+	AlgoListNode<T>* temp = tail;
+	head = head->next;
+	delete temp;
+}
+
+template <typename T>
+void AlgoList<T>::pop_front(){
+	AlgoListNode<T>* temp = head;
+	head = head->next;
+	delete temp;
 }
 
 template <typename T>
 void AlgoList<T>::insert(T dataIn){
-	if(isEmpty()){
+	if(empty()){
 		push_front(dataIn);
 	}else{
 		if(dataIn < head->data){
@@ -132,8 +166,8 @@ void AlgoList<T>::insert(T dataIn){
 template <typename T>
 void AlgoList<T>::print()
 {
-	if(isEmpty()){
-		std::cout << "The AlgoList is empty" << tail;
+	if(empty()){
+		std::cout << "The AlgoList is empty" << std::endl;
 	
 	}else{
 		AlgoListNode<T> * curr = head;
@@ -148,7 +182,7 @@ void AlgoList<T>::print()
 template <typename T>
 void AlgoList<T>::print(std::ofstream & file)
 {
-	if(isEmpty()){
+	if(empty()){
 		file << "The AlgoList is empty" << tail;
 	
 	}else{
@@ -168,7 +202,7 @@ AlgoListNode<T>* AlgoList<T>::search(T key){
 
 	node = head;
 
-	while((!found) && (node != NULL)){
+	while((!found) && (node != nullptr)){
 		if(node->data == key){
 			found = true;
         }
