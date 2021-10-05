@@ -28,22 +28,13 @@ void DataGen::genSets() {
         std::cout << "genAscInt0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
 
 
-        cout << "Gen Rand Int" << endl;
+        cout << "Gen Rand Ints" << endl;
 
         start = std::chrono::high_resolution_clock::now();
-        genRandInt0(sizes[i], i);
+        genInts(sizes[i], i);
         end = std::chrono::high_resolution_clock::now();
         int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genRandInt0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-
-        cout << "Gen Desc Int" << endl;
-        
-        start = std::chrono::high_resolution_clock::now();
-        genDescInt0(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genDescInt0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+        std::cout << "genInts elapsed time is " << int_s.count() << " milliseconds" << std::endl;
 
         cout << "Gen Rand Int 20" << endl;
        
@@ -207,7 +198,7 @@ void DataGen::genAscStr0(int size) {
             str += alphanum[rand() % (sizeof(alphanum) - 1)];
         }
 
-        bool isDupe = false;
+        //bool isDupe = false;
 
         // for (int j = 0; j < stringSet.size(); j++) {
         //     if (str == stringSet[j]) {
@@ -217,21 +208,24 @@ void DataGen::genAscStr0(int size) {
         //     }
         // }
 
-        if (!isDupe) {
+        //if (!isDupe) {
             stringSet.push_back(str);
-        }
+        //}
     }
     asc0Str.push_back(stringSet);
 };
 
-void DataGen::genRandInt0(int size, int iteration) {
+void DataGen::genInts(int size, int iteration) {
     AlgoVector<int> intSet;
+    AlgoVector<int> intSetReverse;
 //---generate integer set---
     for (int i = 0; i < size; i++) {
         intSet.push_back(asc0Int[iteration][i]);
+        intSetReverse.push_back(asc0Int[iteration][size-i-1]);
     }
     random_shuffle(intSet.begin(), intSet.end());
     rand0Int.push_back(intSet);
+    desc0Int.push_back(intSetReverse);
 }
 void DataGen::genRandStr0(int size, int iteration) {
     AlgoVector<string> stringSet;
@@ -244,11 +238,9 @@ void DataGen::genRandStr0(int size, int iteration) {
 };
 
 void DataGen::genDescInt0(int size, int iteration) {
-    AlgoVector<int> intSetReverse;
     for(int j = asc0Int[iteration].size()-1; j >= 0; j--){
-        intSetReverse.push_back(asc0Int[iteration][j]);
+        
     }
-    desc0Int.push_back(intSetReverse);
 }
 void DataGen::genDescStr0(int size, int iteration) {
     AlgoVector<string> stringSetReverse;
@@ -259,16 +251,7 @@ void DataGen::genDescStr0(int size, int iteration) {
 };
 
 void DataGen::genRandInt20(int size, int iteration) {
-    AlgoVector<int> intSet;
 
-//---generate string set---
-    while(intSet.size() < size){
-        intSet.push_back(rand0Int[iteration][intSet.size()]);
-        if(intSet.size() % 5 == 1 && intSet.size() + 1 < size){
-            intSet.push_back(rand0Int[iteration][intSet.size()-1]);
-        }
-    }
-    rand20Int.push_back(intSet);
 }
 
 void DataGen::genRandStr20(int size, int iteration) {
@@ -285,18 +268,24 @@ void DataGen::genRandStr20(int size, int iteration) {
 };
 
 void DataGen::genRandInt40(int size, int iteration) {
-    AlgoVector<int> intSet;
+    AlgoVector<int> intSet20;
+    AlgoVector<int> intSet40;
 
 //---generate string set---
-    while(intSet.size() < size){
-        intSet.push_back(rand0Int[iteration][intSet.size()]);
-        if(intSet.size() % 10 == 1 && intSet.size() + 3 < size){
-            intSet.push_back(rand0Int[iteration][intSet.size()-1]);
-            intSet.push_back(rand0Int[iteration][intSet.size()-2]);
-            intSet.push_back(rand0Int[iteration][intSet.size()-3]);
+    while(intSet20.size() < size && intSet40.size() < size){
+        intSet40.push_back(rand0Int[iteration][intSet40.size()]);
+        if(intSet40.size() % 10 == 1 && intSet40.size() + 3 < size){
+            intSet40.push_back(rand0Int[iteration][intSet40.size()-1]);
+            intSet40.push_back(rand0Int[iteration][intSet40.size()-2]);
+            intSet40.push_back(rand0Int[iteration][intSet40.size()-3]);
+        }
+        intSet20.push_back(rand0Int[iteration][intSet20.size()]);
+        if(intSet20.size() % 5 == 1 && intSet20.size() + 1 < size){
+            intSet20.push_back(rand0Int[iteration][intSet20.size()-1]);
         }
     }
-    rand40Int.push_back(intSet);
+    rand20Int.push_back(intSet20);
+    rand40Int.push_back(intSet40);
 }
 
 void DataGen::genRandStr40(int size, int iteration) {

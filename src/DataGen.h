@@ -16,7 +16,7 @@ class DataGen {
         string getDataFile();
         void genSets();
         void writeSets();
-        void genRandInt0(int, int);
+        void genInts(int, int);
         void genAscInt0(int);
         void genDescInt0(int, int);
         void genRandInt20(int, int);
