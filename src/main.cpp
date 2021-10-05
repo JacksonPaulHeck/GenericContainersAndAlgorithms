@@ -9,7 +9,12 @@ int main(int argc, char** argv){
 
     AlgoVector<int> sizes;
 
+    sizes.push_back(1000);
     sizes.push_back(10000);
+    sizes.push_back(100000);
+    sizes.push_back(500000);
+    sizes.push_back(1000000);
+    sizes.push_back(2000000);
 
     DataGen dataGen(sizes);
 
@@ -19,8 +24,6 @@ int main(int argc, char** argv){
 
     AlgoVector<AlgoVector<int>> rand0IntVectors = dataGen.getRand0Int();
     AlgoVector<AlgoVector<int>> asc0IntVectors = dataGen.getAsc0Int();
-
-    
 
     dataGen.writeSets();
 
