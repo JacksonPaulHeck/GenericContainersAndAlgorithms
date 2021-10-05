@@ -9,7 +9,7 @@ int main(int argc, char** argv){
 
     AlgoVector<int> sizes;
 
-    sizes.push_back(5000);
+    sizes.push_back(10000);
 
     DataGen dataGen(sizes);
 
