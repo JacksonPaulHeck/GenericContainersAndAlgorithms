@@ -10,11 +10,12 @@ set(output04 "output/vector_heap.txt")
 set(output05 "output/vector_insertion.txt")
 set(output06 "output/vector_quick.txt")
 set(output07 "output/vector.txt")
+set(intput01 "test/datasets.csv")
 
-foreach (file IN LISTS output01 output02 output03 output04 output05 output06 output07)
+foreach (file IN LISTS output01 output02 output03 output04 output05 output06 output07 input01)
     configure_file(${file} ${file} COPYONLY)
 endforeach ()
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(${EXE_NAME} src/main.cpp)
+add_executable(${EXE_NAME} src/main.cpp src/DataGen.cpp)

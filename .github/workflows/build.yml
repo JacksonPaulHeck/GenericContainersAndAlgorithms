@@ -5,7 +5,7 @@ on: [push]
 env:
   EXE_NAME: CustomContainers
   BUILD_TYPE: Release
-  INPUT_FILES:
+  INPUT_FILES: test/datasets.csv
   OUTPUT_FILES: output/dict.txt output/find.txt output/list.txt output/vector_heap.txt output/vector_insertion.txt output/vector_quick.txt output/vector.txt
 
 jobs:
