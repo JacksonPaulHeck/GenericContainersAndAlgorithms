@@ -59,24 +59,25 @@ jobs:
         shell: bash
         run: ./$EXE_NAME
       
-      - name: Copy output files to artifact directory
+      - name: Copy input files to artifact directory
         working-directory: ${{runner.workspace}}/build
         run: |
           mkdir artifacts
+          mkdir artifacts/artifacts_input
           for f in $INPUT_FILES
           do
             echo "  Copying $f"
-            cp $f artifacts/
+            cp $f artifacts/artifacts_input/
           done
 
       - name: Copy output files to artifact directory
         working-directory: ${{runner.workspace}}/build
         run: |
-          mkdir artifacts
+          mkdir artifacts/artifacts_output
           for f in $OUTPUT_FILES
           do
             echo "  Copying $f"
-            cp $f artifacts/
+            cp $f artifacts/artifacts_output/
           done
       - name: Upload output files to GitHub so they can be reviewed
         uses: actions/upload-artifact@v1
