@@ -180,19 +180,20 @@ void AlgoVector<T>::resize() { // resize used if the vector needs to grow
 }
 
 template <typename T>
-void AlgoVector<T>::push_back(
-    const T &Data) { // adds an element to the end of the vector
-  T *temp = new T[capacity + 1];
-  for (int i = 0; i < capacity; i++) {
-    temp[i] = data[i];
-  }
-  temp[capacity] = Data;
-  delete[] data;
-  data = temp;
-  capacity += 1;
+void AlgoVector<T>::push_back(const T &Data) { // adds an element to the end of the vector
   if (capacity >= max_capacity) {
     resize();
+    T *temp = new T[max_capacity + 1];
+    for (int i = 0; i < capacity; i++) {
+      temp[i] = data[i];
+    }
+    temp[capacity] = Data;
+    delete[] data;
+    data = temp;
+  }else{
+    data[capacity] = Data;
   }
+  capacity++;
 }
 
 template <typename T>
@@ -204,7 +205,7 @@ void AlgoVector<T>::pop_back() { // pops the last element off of the vector
     }
     delete[] data;
     data = temp;
-    capacity -= 1;
+    capacity--;
   }
 }
 

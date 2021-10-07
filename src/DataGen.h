@@ -1,12 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <exception>
-#include <vector>
+#include "AlgoVector.h"
 #include <string>
 #include <random>
 #include <cstring>
 #include <climits>
-#include "AlgoVector.h"
 
 using namespace std;
 
@@ -18,14 +17,11 @@ class DataGen {
         void writeSets();
         void genInts(int, int);
         void genAscInt0(int);
-        void genDescInt0(int, int);
-        void genRandInt20(int, int);
-        void genRandInt40(int, int);
-        void genRandStr0(int, int);
+        void genRandIntPercents(int, int);
+        void genStrs(int, int);
         void genAscStr0(int);
-        void genDescStr0(int, int);
-        void genRandStr20(int, int);
-        void genRandStr40(int, int);
+        void genRandStrPercents(int, int);
+
         AlgoVector<AlgoVector<int>> & getRand0Int();
         AlgoVector<AlgoVector<int>> & getAsc0Int();
         AlgoVector<AlgoVector<int>> & getDesc0Int();

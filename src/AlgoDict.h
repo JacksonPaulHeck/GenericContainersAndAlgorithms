@@ -38,7 +38,7 @@ class AlgoDict{
 			next();
 			return *this; 
 		}  
-		Iterator operator++(T) { Iterator tmp = *this; ++(*this); return tmp; }
+		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
 		friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
 		friend bool operator== (const Iterator& a, const T b) { return a.m_ptr->data == b; };
 		friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; }; 
@@ -80,10 +80,12 @@ public:
 	void print();
 	void print(std::ofstream &);
 	AlgoTreeNode<T>* search(T);
-	Iterator forward_begin() { return Iterator(root); }
-    Iterator forward_end() { return Iterator(nullptr); }
+	Iterator begin() { return Iterator(root); }
+    Iterator end() { return Iterator(nullptr); }
+	int size();
 private:
 	AlgoTreeNode<T> * root;
+	int length;
 	bool isEmpty();
 	AlgoTreeNode<T>* insert(AlgoTreeNode<T>*, T);
 	void print(AlgoTreeNode<T>*, int);
@@ -99,6 +101,7 @@ private:
 template<typename T>
 AlgoDict<T>::AlgoDict(){
 	this->root = NULL;
+	this->length = 0;
 }
 
 template<typename T>
@@ -118,6 +121,7 @@ void AlgoDict<T>::destroy(AlgoTreeNode<T>* node){
 template <typename T>
 void AlgoDict<T>::insert(T dataIn){
 	root = insert(root, dataIn);
+	length++;
 }
 
 template <typename T>
@@ -264,4 +268,9 @@ void AlgoDict<T> :: print(AlgoTreeNode<T> * node, int space, std::ofstream & fil
 template <typename T>
 bool AlgoDict<T> :: isEmpty(){
 	return root != nullptr;
+}
+
+template <typename T>
+int AlgoDict<T>:: size(){
+	return length;
 }

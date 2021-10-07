@@ -1,6 +1,8 @@
 #include "DataGen.h"
 #include <algorithm>
+#include "AlgoDict.h"
 #include "Algorithm.h"
+#include <cstdlib>
 #include <string>
 #include <bits/stdc++.h>
 
@@ -36,22 +38,14 @@ void DataGen::genSets() {
         int_s = std::chrono::duration<double, std::milli>(end - start);
         std::cout << "genInts elapsed time is " << int_s.count() << " milliseconds" << std::endl;
 
-        cout << "Gen Rand Int 20" << endl;
+        cout << "Gen Rand Int Percents" << endl;
        
         start = std::chrono::high_resolution_clock::now();
-        genRandInt20(sizes[i], i);
+        genRandIntPercents(sizes[i], i);
         end = std::chrono::high_resolution_clock::now();
         int_s = end - start;
-        std::cout << "genRandInt20 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+        std::cout << "genRandIntPercents elapsed time is " << int_s.count() << " milliseconds" << std::endl;
         
-        cout << "Gen Rand Int 40" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
-        genRandInt40(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genRandInt40 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
         cout << "Gen Asc Str" << endl;
 
         start = std::chrono::high_resolution_clock::now();
@@ -63,34 +57,18 @@ void DataGen::genSets() {
         cout << "Gen Rand Str" << endl;
 
         start = std::chrono::high_resolution_clock::now();
-        genRandStr0(sizes[i], i);
+        genStrs(sizes[i], i);
         end = std::chrono::high_resolution_clock::now();
         int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genRandStr0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+        std::cout << "genStrs elapsed time is " << int_s.count() << " milliseconds" << std::endl;
 
-        cout << "Gen Desc Str" << endl;
+        cout << "Gen Rand Str Percents" << endl;
 
         start = std::chrono::high_resolution_clock::now();
-        genDescStr0(sizes[i], i);
+        genRandStrPercents(sizes[i], i);
         end = std::chrono::high_resolution_clock::now();
         int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genDescStr0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-        cout << "Gen Rand Str 20" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
-        genRandStr20(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genRandStr20 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-        cout << "Gen Rand Str 40" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
-        genRandStr40(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genRandStr40 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+        std::cout << "genRandStrPercents elapsed time is " << int_s.count() << " milliseconds" << std::endl;
 
     }
 };
@@ -182,38 +160,57 @@ void DataGen::genAscInt0(int size) {
 }
 
 void DataGen::genAscStr0(int size) {
-    AlgoVector<string> stringSet;
-//---generate string set---
-    for (int i = 0; i < size; i++) {
-        string str;
-        str.reserve(strLength);
-
-        //generates new string using lookup table
-        static const char alphanum[] = 
+    AlgoDict<string> stringSet;
+    static const char alphanum[] = 
             "0123456789"
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             "abcdefghijklmnopqrstuvwxyz";
+//---generate string set---
 
-        for (int s = 0; s < strLength; s++) {
-            str += alphanum[rand() % (sizeof(alphanum) - 1)];
-        }
+    auto start = std::chrono::high_resolution_clock::now();    
+    srand(time(NULL));
+    for (int i = 0; i < size; i++) {
+        string str;
+        str.reserve(strLength);
+        str = "          ";
 
-        //bool isDupe = false;
-
-        // for (int j = 0; j < stringSet.size(); j++) {
-        //     if (str == stringSet[j]) {
-        //         i--;
-        //         isDupe = true;
-        //         break;
-        //     }
-        // }
-
-        //if (!isDupe) {
-            stringSet.push_back(str);
-        //}
+        // generates new string using lookup table
+        str[0] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[1] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[2] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[3] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[4] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[5] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[6] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[7] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[8] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        str[9] = alphanum[(rand()) % (sizeof(alphanum) - 1)];
+        
+        stringSet.insert(str);
     }
-    asc0Str.push_back(stringSet);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto int_s = std::chrono::duration<double, std::milli>(end - start);
+    std::cout << "part 1 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+    
+    AlgoVector<string> stringVec;
+    start = std::chrono::high_resolution_clock::now();    
+    for(auto i : stringSet){
+        stringVec.push_back(i.data);
+    }
+    end = std::chrono::high_resolution_clock::now();
+    int_s = std::chrono::duration<double, std::milli>(end - start);
+    std::cout << "part 2 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+    
+    start = std::chrono::high_resolution_clock::now();    
+
+    asc0Str.push_back(stringVec);
+    end = std::chrono::high_resolution_clock::now();
+    int_s = std::chrono::duration<double, std::milli>(end - start);
+    std::cout << "part 3 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
+    
 };
+
+
 
 void DataGen::genInts(int size, int iteration) {
     AlgoVector<int> intSet;
@@ -227,47 +224,20 @@ void DataGen::genInts(int size, int iteration) {
     rand0Int.push_back(intSet);
     desc0Int.push_back(intSetReverse);
 }
-void DataGen::genRandStr0(int size, int iteration) {
+void DataGen::genStrs(int size, int iteration) {
     AlgoVector<string> stringSet;
+    AlgoVector<string> stringSetReverse;
 //---generate string set---
     for (int i = 0; i < size; i++) {
         stringSet.push_back(asc0Str[iteration][i]);
+        stringSetReverse.push_back(asc0Str[iteration][size-i-1]);
     }
     random_shuffle(stringSet.begin(), stringSet.end());
     rand0Str.push_back(stringSet);
-};
-
-void DataGen::genDescInt0(int size, int iteration) {
-    for(int j = asc0Int[iteration].size()-1; j >= 0; j--){
-        
-    }
-}
-void DataGen::genDescStr0(int size, int iteration) {
-    AlgoVector<string> stringSetReverse;
-    for(int j = asc0Str[iteration].size()-1; j >= 0; j--){
-        stringSetReverse.push_back(asc0Str[iteration][j]);
-    }
     desc0Str.push_back(stringSetReverse);
 };
 
-void DataGen::genRandInt20(int size, int iteration) {
-
-}
-
-void DataGen::genRandStr20(int size, int iteration) {
-    AlgoVector<string> stringSet;
-
-//---generate string set---
-    while(stringSet.size() < size){
-        stringSet.push_back(rand0Str[iteration][stringSet.size()]);
-        if(stringSet.size() % 5 == 1 && stringSet.size() + 1 < size){
-            stringSet.push_back(rand0Str[iteration][stringSet.size()-1]);
-        }
-    }
-    rand20Str.push_back(stringSet);
-};
-
-void DataGen::genRandInt40(int size, int iteration) {
+void DataGen::genRandIntPercents(int size, int iteration) {
     AlgoVector<int> intSet20;
     AlgoVector<int> intSet40;
 
@@ -288,19 +258,25 @@ void DataGen::genRandInt40(int size, int iteration) {
     rand40Int.push_back(intSet40);
 }
 
-void DataGen::genRandStr40(int size, int iteration) {
-    AlgoVector<string> stringSet;
+void DataGen::genRandStrPercents(int size, int iteration) {
+    AlgoVector<string> stringSet20;
+    AlgoVector<string> stringSet40;
 
 //---generate string set---
-    while(stringSet.size() < size){
-        stringSet.push_back(rand0Str[iteration][stringSet.size()]);
-        if(stringSet.size() % 10 == 1 && stringSet.size() + 3 < size){
-            stringSet.push_back(rand0Str[iteration][stringSet.size()-1]);
-            stringSet.push_back(rand0Str[iteration][stringSet.size()-2]);
-            stringSet.push_back(rand0Str[iteration][stringSet.size()-3]);
+    while(stringSet20.size() < size && stringSet40.size() < size){
+        stringSet40.push_back(rand0Str[iteration][stringSet40.size()]);
+        if(stringSet40.size() % 10 == 1 && stringSet40.size() + 3 < size){
+            stringSet40.push_back(rand0Str[iteration][stringSet40.size()-1]);
+            stringSet40.push_back(rand0Str[iteration][stringSet40.size()-2]);
+            stringSet40.push_back(rand0Str[iteration][stringSet40.size()-3]);
+        }
+        stringSet20.push_back(rand0Str[iteration][stringSet20.size()]);
+        if(stringSet20.size() % 5 == 1 && stringSet20.size() + 1 < size){
+            stringSet20.push_back(rand0Str[iteration][stringSet20.size()-1]);
         }
     }
-    rand40Str.push_back(stringSet);
+    rand20Str.push_back(stringSet20);
+    rand40Str.push_back(stringSet40);
 };
 
 AlgoVector<AlgoVector<int>> & DataGen::getRand0Int(){
