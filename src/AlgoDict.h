@@ -40,7 +40,7 @@ class AlgoDict{
 			next();
 			return *this; 
 		}  
-		Iterator & operator++(T) {
+		Iterator & operator++(int) {
 			next();
 			return *this; 
 		}

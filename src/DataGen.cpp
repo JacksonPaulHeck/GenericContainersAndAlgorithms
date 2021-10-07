@@ -1,4 +1,5 @@
 #include "DataGen.h"
+#include <algorithm>
 
 DataGen::DataGen(AlgoVector<int> sizesToUse) {
     this->sizes = sizesToUse;
