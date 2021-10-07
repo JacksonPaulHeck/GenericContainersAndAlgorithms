@@ -1,5 +1,6 @@
 #include "DataGen.h"
 #include <algorithm>
+#include <chrono>
 
 DataGen::DataGen(AlgoVector<int> sizesToUse) {
     this->sizes = sizesToUse;
@@ -115,7 +116,7 @@ void DataGen::genAscStr0(int size) {
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             "abcdefghijklmnopqrstuvwxyz";
 //---generate string set---
-
+    auto start = std::chrono::high_resolution_clock::now();
     srand(time(NULL));
     for (int i = 0; i < size; i++) {
         std::string str;
@@ -136,11 +137,25 @@ void DataGen::genAscStr0(int size) {
         
         stringSet.insert(str);
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> float_ms = end - start;
+    std::cout << "part 1 elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
     AlgoVector<std::string> stringVec;
     for(auto i : stringSet){
         stringVec.push_back(i.data);
     }
+    end = std::chrono::high_resolution_clock::now();
+    float_ms = end - start;
+    std::cout << "part 2 elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
     asc0Str.push_back(stringVec);
+    end = std::chrono::high_resolution_clock::now();
+    float_ms = end - start;
+    std::cout << "part 3 elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
+
 };
 
 
