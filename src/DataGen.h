@@ -1,18 +1,10 @@
-#include <iostream>
-#include <fstream>
-#include <exception>
 #include "AlgoVector.h"
-#include <string>
-#include <random>
-#include <cstring>
-#include <climits>
-
-using namespace std;
+#include "AlgoDict.h"
 
 class DataGen {
     public:
         DataGen(AlgoVector<int>);
-        string getDataFile();
+        std::string getDataFile();
         void genSets();
         void writeSets();
         void genInts(int, int);
@@ -28,7 +20,7 @@ class DataGen {
         AlgoVector<AlgoVector<int>> & getRand20Int();
         AlgoVector<AlgoVector<int>> & getRand40Int();
     private:
-        string dataFile;
+        std::string dataFile;
         int strLength;
         AlgoVector<int> sizes;
         AlgoVector<AlgoVector<int>> rand0Int;
@@ -36,9 +28,9 @@ class DataGen {
         AlgoVector<AlgoVector<int>> desc0Int;
         AlgoVector<AlgoVector<int>> rand20Int;
         AlgoVector<AlgoVector<int>> rand40Int;
-        AlgoVector<AlgoVector<string>> rand0Str;
-        AlgoVector<AlgoVector<string>> asc0Str;
-        AlgoVector<AlgoVector<string>> desc0Str;
-        AlgoVector<AlgoVector<string>> rand20Str;
-        AlgoVector<AlgoVector<string>> rand40Str;
+        AlgoVector<AlgoVector<std::string>> rand0Str;
+        AlgoVector<AlgoVector<std::string>> asc0Str;
+        AlgoVector<AlgoVector<std::string>> desc0Str;
+        AlgoVector<AlgoVector<std::string>> rand20Str;
+        AlgoVector<AlgoVector<std::string>> rand40Str;
 };

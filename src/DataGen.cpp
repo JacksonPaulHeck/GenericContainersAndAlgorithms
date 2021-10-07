@@ -1,10 +1,4 @@
 #include "DataGen.h"
-#include <algorithm>
-#include "AlgoDict.h"
-#include "Algorithm.h"
-#include <cstdlib>
-#include <string>
-#include <bits/stdc++.h>
 
 DataGen::DataGen(AlgoVector<int> sizesToUse) {
     this->sizes = sizesToUse;
@@ -12,138 +6,92 @@ DataGen::DataGen(AlgoVector<int> sizesToUse) {
     this->strLength = 10;
 };
 
-string DataGen::getDataFile() {
+std::string DataGen::getDataFile() {
     return dataFile;
 }
 
 void DataGen::genSets() {
-    cout << "Gen Sets" << endl;
     for (int i = 0; i < sizes.size(); i++) {
-        cout << i << endl;
-
-        cout << "Gen Asc Int" << endl;
-
-        auto start = std::chrono::high_resolution_clock::now();
         genAscInt0(sizes[i]);
-        auto end = std::chrono::high_resolution_clock::now();
-        auto int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genAscInt0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-
-        cout << "Gen Rand Ints" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
         genInts(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genInts elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-        cout << "Gen Rand Int Percents" << endl;
-       
-        start = std::chrono::high_resolution_clock::now();
         genRandIntPercents(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = end - start;
-        std::cout << "genRandIntPercents elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-        
-        cout << "Gen Asc Str" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
         genAscStr0(sizes[i]);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genAscStr0 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-        cout << "Gen Rand Str" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
         genStrs(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genStrs elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
-        cout << "Gen Rand Str Percents" << endl;
-
-        start = std::chrono::high_resolution_clock::now();
         genRandStrPercents(sizes[i], i);
-        end = std::chrono::high_resolution_clock::now();
-        int_s = std::chrono::duration<double, std::milli>(end - start);
-        std::cout << "genRandStrPercents elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-
     }
 };
 
 void DataGen::writeSets() {
-    ofstream setFile;
+    std::ofstream setFile;
     setFile.open(dataFile);
 
-    setFile << "Integers" << endl;
+    setFile << "Integers" << std::endl;
 
     for (int i = 0; i < sizes.size(); i++) {
 
-        setFile << "Randomized, size " << rand0Int[i].size() << ", 0%" << endl;
+        setFile << "Randomized, size " << rand0Int[i].size() << ", 0%" << std::endl;
         for (int j = 0; j < rand0Int[i].size(); j++) {
             setFile << rand0Int[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Ascending, size " << asc0Int[i].size() << ", 0%" << endl;
+        setFile << "Ascending, size " << asc0Int[i].size() << ", 0%" << std::endl;
         for (int j = 0; j < asc0Int[i].size(); j++) {
             setFile << asc0Int[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Descending, size " << desc0Int[i].size() << ", 0%" << endl;
+        setFile << "Descending, size " << desc0Int[i].size() << ", 0%" << std::endl;
         for (int j = 0; j < desc0Int[i].size(); j++) {
             setFile << desc0Int[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Randomized, size " << rand20Int[i].size() << ", 20%" << endl;
+        setFile << "Randomized, size " << rand20Int[i].size() << ", 20%" << std::endl;
         for (int j = 0; j < rand20Int[i].size(); j++) {
             setFile << rand20Int[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Randomized, size " << rand40Int[i].size() << ", 40%" << endl;
+        setFile << "Randomized, size " << rand40Int[i].size() << ", 40%" << std::endl;
         for (int j = 0; j < rand40Int[i].size(); j++) {
             setFile << rand40Int[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
     }
 
-    setFile << endl << "Strings" << endl;
+    setFile << std::endl << "Strings" << std::endl;
 
     for (int i = 0; i < sizes.size(); i++) {
-        setFile << "Randomized, size " << rand0Str[i].size() << ", 0%" << endl;
+        setFile << "Randomized, size " << rand0Str[i].size() << ", 0%" << std::endl;
         for (int j = 0; j < rand0Str[i].size(); j++) {
             setFile << rand0Str[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Ascending, size " << asc0Str[i].size() << ", 0%" << endl;
+        setFile << "Ascending, size " << asc0Str[i].size() << ", 0%" << std::endl;
         for (int j = 0; j < asc0Str[i].size(); j++) {
             setFile << asc0Str[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Descending, size " << desc0Str[i].size() << ", 0%" << endl;
+        setFile << "Descending, size " << desc0Str[i].size() << ", 0%" << std::endl;
         for (int j = 0; j < desc0Str[i].size(); j++) {
             setFile << desc0Str[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Randomized, size " << rand20Str[i].size() << ", 20%" << endl;
+        setFile << "Randomized, size " << rand20Str[i].size() << ", 20%" << std::endl;
         for (int j = 0; j < rand20Str[i].size(); j++) {
             setFile << rand20Str[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
 
-        setFile << "Randomized, size " << rand40Str[i].size() << ", 40%" << endl;
+        setFile << "Randomized, size " << rand40Str[i].size() << ", 40%" << std::endl;
         for (int j = 0; j < rand40Str[i].size(); j++) {
             setFile << rand40Str[i][j] << ", ";
         }
-        setFile << endl << endl;
+        setFile << std::endl << std::endl;
     }
 };
 
@@ -160,17 +108,16 @@ void DataGen::genAscInt0(int size) {
 }
 
 void DataGen::genAscStr0(int size) {
-    AlgoDict<string> stringSet;
+    AlgoDict<std::string> stringSet;
     static const char alphanum[] = 
             "0123456789"
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             "abcdefghijklmnopqrstuvwxyz";
 //---generate string set---
 
-    auto start = std::chrono::high_resolution_clock::now();    
     srand(time(NULL));
     for (int i = 0; i < size; i++) {
-        string str;
+        std::string str;
         str.reserve(strLength);
         str = "          ";
 
@@ -188,26 +135,11 @@ void DataGen::genAscStr0(int size) {
         
         stringSet.insert(str);
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    auto int_s = std::chrono::duration<double, std::milli>(end - start);
-    std::cout << "part 1 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-    
-    AlgoVector<string> stringVec;
-    start = std::chrono::high_resolution_clock::now();    
+    AlgoVector<std::string> stringVec;
     for(auto i : stringSet){
         stringVec.push_back(i.data);
     }
-    end = std::chrono::high_resolution_clock::now();
-    int_s = std::chrono::duration<double, std::milli>(end - start);
-    std::cout << "part 2 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-    
-    start = std::chrono::high_resolution_clock::now();    
-
     asc0Str.push_back(stringVec);
-    end = std::chrono::high_resolution_clock::now();
-    int_s = std::chrono::duration<double, std::milli>(end - start);
-    std::cout << "part 3 elapsed time is " << int_s.count() << " milliseconds" << std::endl;
-    
 };
 
 
@@ -220,19 +152,19 @@ void DataGen::genInts(int size, int iteration) {
         intSet.push_back(asc0Int[iteration][i]);
         intSetReverse.push_back(asc0Int[iteration][size-i-1]);
     }
-    random_shuffle(intSet.begin(), intSet.end());
+    std::random_shuffle(intSet.begin(), intSet.end());
     rand0Int.push_back(intSet);
     desc0Int.push_back(intSetReverse);
 }
 void DataGen::genStrs(int size, int iteration) {
-    AlgoVector<string> stringSet;
-    AlgoVector<string> stringSetReverse;
+    AlgoVector<std::string> stringSet;
+    AlgoVector<std::string> stringSetReverse;
 //---generate string set---
     for (int i = 0; i < size; i++) {
         stringSet.push_back(asc0Str[iteration][i]);
         stringSetReverse.push_back(asc0Str[iteration][size-i-1]);
     }
-    random_shuffle(stringSet.begin(), stringSet.end());
+    std::random_shuffle(stringSet.begin(), stringSet.end());
     rand0Str.push_back(stringSet);
     desc0Str.push_back(stringSetReverse);
 };
@@ -259,8 +191,8 @@ void DataGen::genRandIntPercents(int size, int iteration) {
 }
 
 void DataGen::genRandStrPercents(int size, int iteration) {
-    AlgoVector<string> stringSet20;
-    AlgoVector<string> stringSet40;
+    AlgoVector<std::string> stringSet20;
+    AlgoVector<std::string> stringSet40;
 
 //---generate string set---
     while(stringSet20.size() < size && stringSet40.size() < size){
