@@ -20,7 +20,7 @@ template <typename T> class AlgoVector {
       reference operator*() const { return *m_ptr; }
       pointer operator->() { return m_ptr; }
       ForwardIterator& operator++() { m_ptr++; return *this; }
-      ForwardIterator operator++(T) { ForwardIterator tmp = *this; ++(*this); return tmp; }
+      ForwardIterator operator++(int) { ForwardIterator tmp = *this; ++(*this); return tmp; }
       friend bool operator== (const ForwardIterator& a, const ForwardIterator& b) { return a.m_ptr == b.m_ptr; };
       friend bool operator!= (const ForwardIterator& a, const ForwardIterator& b) { return a.m_ptr != b.m_ptr; };  
       friend std::ofstream& operator<<(std::ofstream& a, const ForwardIterator& b){
@@ -48,10 +48,10 @@ template <typename T> class AlgoVector {
       pointer operator->() { return m_ptr; }
       
       RandomAccessIterator& operator++() { m_ptr++; return *this; }
-      RandomAccessIterator operator++(T) { RandomAccessIterator tmp = *this; ++(*this); return tmp; }
+      RandomAccessIterator operator++(int) { RandomAccessIterator tmp = *this; ++(*this); return tmp; }
 
       RandomAccessIterator& operator--() { m_ptr--; return *this; }
-      RandomAccessIterator operator--(T) { RandomAccessIterator tmp = *this; --(*this); return tmp; }
+      RandomAccessIterator operator--(int) { RandomAccessIterator tmp = *this; --(*this); return tmp; }
 
       RandomAccessIterator operator+(const difference_type& movement){pointer oldPtr = m_ptr;m_ptr+=movement;RandomAccessIterator temp(*this);m_ptr = oldPtr;return temp;}
       RandomAccessIterator operator-(const difference_type& movement){pointer oldPtr = m_ptr;m_ptr-=movement;RandomAccessIterator temp(*this);m_ptr = oldPtr;return temp;}
@@ -180,19 +180,20 @@ void AlgoVector<T>::resize() { // resize used if the vector needs to grow
 }
 
 template <typename T>
-void AlgoVector<T>::push_back(
-    const T &Data) { // adds an element to the end of the vector
-  T *temp = new T[capacity + 1];
-  for (int i = 0; i < capacity; i++) {
-    temp[i] = data[i];
-  }
-  temp[capacity] = Data;
-  delete[] data;
-  data = temp;
-  capacity += 1;
+void AlgoVector<T>::push_back(const T &Data) { // adds an element to the end of the vector
   if (capacity >= max_capacity) {
     resize();
+    T *temp = new T[max_capacity + 1];
+    for (int i = 0; i < capacity; i++) {
+      temp[i] = data[i];
+    }
+    temp[capacity] = Data;
+    delete[] data;
+    data = temp;
+  }else{
+    data[capacity] = Data;
   }
+  capacity++;
 }
 
 template <typename T>
@@ -204,7 +205,7 @@ void AlgoVector<T>::pop_back() { // pops the last element off of the vector
     }
     delete[] data;
     data = temp;
-    capacity -= 1;
+    capacity--;
   }
 }
 

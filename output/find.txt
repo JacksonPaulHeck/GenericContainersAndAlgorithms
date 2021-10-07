@@ -1,4 +1,4 @@
 Find Test: 
-Vect: 1
-List: 1
-Dict: 1
+7
+7
+7

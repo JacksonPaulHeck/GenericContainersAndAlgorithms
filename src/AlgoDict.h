@@ -1,6 +1,5 @@
 #include <cstddef>
-#include "AlgoStack.h"
-#include <stack>
+#include <bits/stdc++.h>
 
 template <typename T>
 class AlgoTreeNode{
@@ -39,11 +38,7 @@ class AlgoDict{
 			next();
 			return *this; 
 		}  
-		Iterator & operator++(T) {
-			next();
-			return *this; 
-		}
-
+		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
 		friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
 		friend bool operator== (const Iterator& a, const T b) { return a.m_ptr->data == b; };
 		friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; }; 
@@ -55,13 +50,10 @@ class AlgoDict{
 			a >> *(b.m_ptr);
 			return a;
 		};
-		void print(){
-			m_stack.print();
-		}
 
 		private: 
 			pointer m_ptr;
-			AlgoStack<pointer> m_stack;
+			std::stack<pointer> m_stack;
 
 			void fillStack(pointer node){
 				if(node != nullptr){
@@ -71,10 +63,10 @@ class AlgoDict{
 				}
 				return;
 			}
-			void next() {
+			void next() {				
 				if(!m_stack.empty()){
 					m_ptr = m_stack.top();
-					m_stack.pop();					
+					m_stack.pop();
 				}else {
 					m_ptr = nullptr;
 				}
@@ -90,8 +82,10 @@ public:
 	AlgoTreeNode<T>* search(T);
 	Iterator begin() { return Iterator(root); }
     Iterator end() { return Iterator(nullptr); }
+	int size();
 private:
 	AlgoTreeNode<T> * root;
+	int length;
 	bool isEmpty();
 	AlgoTreeNode<T>* insert(AlgoTreeNode<T>*, T);
 	void print(AlgoTreeNode<T>*, int);
@@ -106,7 +100,8 @@ private:
 
 template<typename T>
 AlgoDict<T>::AlgoDict(){
-	this->root = nullptr;
+	this->root = NULL;
+	this->length = 0;
 }
 
 template<typename T>
@@ -126,6 +121,7 @@ void AlgoDict<T>::destroy(AlgoTreeNode<T>* node){
 template <typename T>
 void AlgoDict<T>::insert(T dataIn){
 	root = insert(root, dataIn);
+	length++;
 }
 
 template <typename T>
@@ -272,4 +268,9 @@ void AlgoDict<T> :: print(AlgoTreeNode<T> * node, int space, std::ofstream & fil
 template <typename T>
 bool AlgoDict<T> :: isEmpty(){
 	return root != nullptr;
+}
+
+template <typename T>
+int AlgoDict<T>:: size(){
+	return length;
 }
