@@ -14,8 +14,8 @@ int main(int argc, char** argv){
     sizes.push_back(10000);
     sizes.push_back(100000);
     sizes.push_back(500000);
-    // sizes.push_back(1000000);
-    // sizes.push_back(2000000);
+    sizes.push_back(1000000);
+    sizes.push_back(2000000);
 
     DataGen dataGen(sizes);
 
