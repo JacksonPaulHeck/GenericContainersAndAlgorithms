@@ -54,11 +54,6 @@ jobs:
         shell: bash
         run: ./$EXE_NAME $INPUT_FILES $OUTPUT_FILES
 
-      - name: Run Catch tests
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: ./$EXE_NAME
-      
       - name: Copy input files to artifact directory
         working-directory: ${{runner.workspace}}/build
         run: |
