@@ -1,11 +1,11 @@
-#include "AlgoList.h"
+#include "AlgoVector.h"
 #include <fstream>
 
 template<typename T>
 class AlgoStack {
 private:
     int length;
-    AlgoList<T> data;
+    AlgoVector<T> data;
 public:
     AlgoStack();
     // ~AlgoStack();
@@ -21,7 +21,7 @@ public:
 
 template<typename T>
 AlgoStack<T>::AlgoStack() {
-    data = AlgoList<T>();
+    data = AlgoVector<T>();
     length = 0;
 }
 
@@ -32,8 +32,8 @@ bool AlgoStack<T>::empty(){
 
 template<typename T>
 void AlgoStack<T>::clear() {
-    while(!data.empty()){
-        data.pop_front();
+    while(length == 0){
+        data.pop_back();
     }
     length = 0;
 }
@@ -46,15 +46,15 @@ void AlgoStack<T>::push(const T &it) {
 
 template<typename T>
 void AlgoStack<T>::pop() {
-    if (!data.empty()) {
-        data.pop_front();
+    if (length != 0) {
+        data.pop_back();
         length--;
     }
 }
 
 template<typename T>
 T & AlgoStack<T>::top() {
-    return data.peek_front();
+    return data[data.size()-1];
 }
 
 template<typename T>

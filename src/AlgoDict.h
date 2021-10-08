@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <bits/stdc++.h>
+#include "AlgoStack.h"
 
 template <typename T>
 class AlgoTreeNode{
