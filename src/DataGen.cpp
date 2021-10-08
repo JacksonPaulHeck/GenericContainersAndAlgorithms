@@ -1,5 +1,5 @@
 #include "DataGen.h"
-#include <algorithm>
+#include "Algorithm.h"
 #include <chrono>
 
 DataGen::DataGen(AlgoVector<int> sizesToUse) {
@@ -116,7 +116,6 @@ void DataGen::genAscStr0(int size) {
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             "abcdefghijklmnopqrstuvwxyz";
 //---generate string set---
-    auto start = std::chrono::high_resolution_clock::now();
     srand(time(NULL));
     for (int i = 0; i < size; i++) {
         std::string str;
@@ -137,25 +136,12 @@ void DataGen::genAscStr0(int size) {
         
         stringSet.insert(str);
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> float_ms = end - start;
-    std::cout << "part 1 elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
 
-    start = std::chrono::high_resolution_clock::now();
     AlgoVector<std::string> stringVec;
     for(auto i : stringSet){
         stringVec.push_back(i.data);
     }
-    end = std::chrono::high_resolution_clock::now();
-    float_ms = end - start;
-    std::cout << "part 2 elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
-
-    start = std::chrono::high_resolution_clock::now();
     asc0Str.push_back(stringVec);
-    end = std::chrono::high_resolution_clock::now();
-    float_ms = end - start;
-    std::cout << "part 3 elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
-
 };
 
 
@@ -168,7 +154,7 @@ void DataGen::genInts(int size, int iteration) {
         intSet.push_back(asc0Int[iteration][i]);
         intSetReverse.push_back(asc0Int[iteration][size-i-1]);
     }
-    std::random_shuffle(intSet.begin(), intSet.end());
+    algo_random_shuffle(intSet.begin(), intSet.end());
     rand0Int.push_back(intSet);
     desc0Int.push_back(intSetReverse);
 }
@@ -180,7 +166,7 @@ void DataGen::genStrs(int size, int iteration) {
         stringSet.push_back(asc0Str[iteration][i]);
         stringSetReverse.push_back(asc0Str[iteration][size-i-1]);
     }
-    std::random_shuffle(stringSet.begin(), stringSet.end());
+    algo_random_shuffle(stringSet.begin(), stringSet.end());
     rand0Str.push_back(stringSet);
     desc0Str.push_back(stringSetReverse);
 };

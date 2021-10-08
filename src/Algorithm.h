@@ -24,6 +24,52 @@ ForwardIter algo_find( ForwardIter beg, ForwardIter end, T value, Compare comp) 
     return beg;
 }
 
+template<typename RandomAccessIter>
+void algo_random_shuffle(RandomAccessIter beg, RandomAccessIter end){
+    if (beg != end){
+        for (RandomAccessIter i = beg + 1; i != end; ++i){
+            RandomAccessIter j = beg + std::rand() % ((i - beg) + 1);
+            if (i != j){
+                std::iter_swap(i, j);
+            }
+        }
+    }
+}
+
+template<typename RandomAccessIter>
+bool algo_check_ascending(RandomAccessIter beg, RandomAccessIter end){
+    if(beg != end){
+        for(RandomAccessIter i = beg; i != end-1; i++){
+            if(*i > *(i + 1)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+template<typename RandomAccessIter>
+bool algo_check_descending(RandomAccessIter beg, RandomAccessIter end){
+    if(beg != end){
+        for(RandomAccessIter i = beg; i != end-1; i++){
+            if(*i < *(i + 1)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+template<typename RandomAccessIter>
+bool algo_check_random(RandomAccessIter beg, RandomAccessIter end){
+    if(beg != end){
+        if(!algo_check_ascending(beg, end) && !algo_check_descending(beg, end)){
+            return true;
+        }
+    }
+    return false;
+}
+
 template<typename T>
 void algo_swap(T& a, T& b){
     T tmp = a;
