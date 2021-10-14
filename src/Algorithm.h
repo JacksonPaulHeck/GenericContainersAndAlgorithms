@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 
+// Find
+
 template<typename ForwardIter, typename T>
 bool algo_find( ForwardIter beg, ForwardIter end, T value) {
     while(beg != end) {
@@ -12,6 +14,8 @@ bool algo_find( ForwardIter beg, ForwardIter end, T value) {
     }
     return false;
 }
+
+// Find Custom Comparator
 
 template<typename ForwardIter, typename T, typename Compare>
 ForwardIter algo_find( ForwardIter beg, ForwardIter end, T value, Compare comp) {
@@ -24,6 +28,8 @@ ForwardIter algo_find( ForwardIter beg, ForwardIter end, T value, Compare comp) 
     return beg;
 }
 
+// Random Shuffle
+
 template<typename RandomAccessIter>
 void algo_random_shuffle(RandomAccessIter beg, RandomAccessIter end){
     if (beg != end){
@@ -35,6 +41,8 @@ void algo_random_shuffle(RandomAccessIter beg, RandomAccessIter end){
         }
     }
 }
+
+// Checking Algorithms
 
 template<typename RandomAccessIter>
 bool algo_check_ascending(RandomAccessIter beg, RandomAccessIter end){
@@ -70,6 +78,8 @@ bool algo_check_random(RandomAccessIter beg, RandomAccessIter end){
     return false;
 }
 
+// Insertion Sort
+
 template<typename T>
 void algo_swap(T& a, T& b){
     T tmp = a;
@@ -82,6 +92,7 @@ void algo_iter_swap(RandomAccessIter a, RandomAccessIter b){
       algo_swap(*a, *b);
 }
 
+
 template<typename RandomAccessIter>
 RandomAccessIter algo_min_element(RandomAccessIter first, RandomAccessIter last){
     if(first == last){
@@ -90,20 +101,6 @@ RandomAccessIter algo_min_element(RandomAccessIter first, RandomAccessIter last)
     RandomAccessIter result = first;
     while(++first != last){
         if(*first < *result){
-            result = first;
-        }
-    }
-    return result;
-}
-
-template<typename RandomAccessIter, typename Compare>
-RandomAccessIter algo_min_element(RandomAccessIter first, RandomAccessIter last, Compare comp){
-    if(first == last){
-        return first;
-    }
-    RandomAccessIter result = first;
-    while(++first != last){
-        if(comp(*first, *result)){
             result = first;
         }
     }
@@ -120,6 +117,22 @@ void algo_insertion_sort( RandomAccessIter begin, RandomAccessIter end) {
     }
 }
 
+// Insertion Sort Custom Comparator
+
+template<typename RandomAccessIter, typename Compare>
+RandomAccessIter algo_min_element(RandomAccessIter first, RandomAccessIter last, Compare comp){
+    if(first == last){
+        return first;
+    }
+    RandomAccessIter result = first;
+    while(++first != last){
+        if(comp(*first, *result)){
+            result = first;
+        }
+    }
+    return result;
+}
+
 template<typename RandomAccessIter, typename Compare>
 void algo_insertion_sort( RandomAccessIter begin, RandomAccessIter end, Compare comp) {
     algo_iter_swap( begin, algo_min_element( begin, end , comp));
@@ -129,6 +142,8 @@ void algo_insertion_sort( RandomAccessIter begin, RandomAccessIter end, Compare 
         }
     }
 }
+
+// Quick Sort
 
 template <typename RandomAccessIter>
 void algo_quick_sort(RandomAccessIter begin, RandomAccessIter end) {
@@ -145,6 +160,8 @@ void algo_quick_sort(RandomAccessIter begin, RandomAccessIter end) {
     algo_quick_sort(middle, end);
 }
 
+// Quick Sort Custom Comparator
+
 template <typename RandomAccessIter, typename Compare>
 void algo_quick_sort(RandomAccessIter begin, RandomAccessIter end, Compare comp) {
     if (end <= begin) return;
@@ -159,6 +176,9 @@ void algo_quick_sort(RandomAccessIter begin, RandomAccessIter end, Compare comp)
     algo_quick_sort(begin, middle - 1);
     algo_quick_sort(middle, end);
 }
+
+
+// Less Comparator
 
 struct Iter_less_iter{
     template<typename RandomAccessIter>
@@ -182,6 +202,22 @@ struct Iter_less_val{
     }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Heap Sort Normal
+
 template<typename RandomAccessIter, typename T, typename Compare>
 void push_heap(RandomAccessIter first, long int hole, long int top, T val, Compare& comp){
     long int parent = (hole - 1) / 2;
@@ -200,13 +236,6 @@ void pop_heap(RandomAccessIter first, RandomAccessIter last, RandomAccessIter re
     adjust_heap(first, long(0), long(last - first), val, comp);
 }
 
-template<typename RandomAccessIter, typename Compare1, typename Compare2>
-void pop_heap(RandomAccessIter first, RandomAccessIter last, RandomAccessIter result, Compare1& comp, Compare2 cmp){
-    auto val = *result;
-    *result = *first;
-    adjust_heap(first, long(0), long(last - first), val, comp, cmp);
-}
-
 
 template<typename RandomAccessIter>
 void pop_heap(RandomAccessIter first, RandomAccessIter last){
@@ -214,14 +243,6 @@ void pop_heap(RandomAccessIter first, RandomAccessIter last){
     if (last - first > 1){
 	    --last;
         pop_heap(first, last, last, comp);
-	}
-}
-
-template<typename RandomAccessIter, typename Compare1, typename Compare2>
-void pop_heap(RandomAccessIter first, RandomAccessIter last, Compare1 comp, Compare2 cmp){
-    if (last - first > 1){
-	    --last;
-        pop_heap(first, last, last, comp, cmp);
 	}
 }
 
@@ -246,6 +267,47 @@ void adjust_heap(RandomAccessIter first, long int hole, long int len, T val, Com
     push_heap(first, hole, top, val, cmp);
 }
 
+template<typename RandomAccessIter>
+void make_heap(RandomAccessIter first, RandomAccessIter last){
+    Iter_less_iter comp;
+    if (last - first < 2){
+        return;
+    }
+    const long int len = last - first;
+    long int parent = (len - 2) / 2;
+    while (true){
+        auto val = *(first + parent);
+        adjust_heap(first, parent, len, val, comp);
+        if (parent == 0)
+            return;
+        parent--;
+    }
+}
+
+template <typename RandomAccessIter>
+void algo_heap_sort(RandomAccessIter begin, RandomAccessIter end) {
+    make_heap(begin, end);
+    while (begin != end)
+        pop_heap(begin, end--);
+}
+
+// Heap Sort with Custom Comparator
+
+template<typename RandomAccessIter, typename Compare1, typename Compare2>
+void pop_heap(RandomAccessIter first, RandomAccessIter last, RandomAccessIter result, Compare1& comp, Compare2 cmp){
+    auto val = *result;
+    *result = *first;
+    adjust_heap(first, long(0), long(last - first), val, comp, cmp);
+}
+
+template<typename RandomAccessIter, typename Compare1, typename Compare2>
+void pop_heap(RandomAccessIter first, RandomAccessIter last, Compare1 comp, Compare2 cmp){
+    if (last - first > 1){
+	    --last;
+        pop_heap(first, last, last, comp, cmp);
+	}
+}
+
 template<typename RandomAccessIter, typename T, typename Compare1, typename Compare2>
 void adjust_heap(RandomAccessIter first, long int hole, long int len, T val, Compare1 comp, Compare2 cmp){
     const long int top = hole;
@@ -266,23 +328,6 @@ void adjust_heap(RandomAccessIter first, long int hole, long int len, T val, Com
     push_heap(first, hole, top, val, cmp);
 }
 
-template<typename RandomAccessIter>
-void make_heap(RandomAccessIter first, RandomAccessIter last){
-    Iter_less_iter comp;
-    if (last - first < 2){
-        return;
-    }
-    const long int len = last - first;
-    long int parent = (len - 2) / 2;
-    while (true){
-        auto val = *(first + parent);
-        adjust_heap(first, parent, len, val, comp);
-        if (parent == 0)
-            return;
-        parent--;
-    }
-}
-
 template<typename RandomAccessIter, typename Compare1, typename Compare2>
 void make_heap(RandomAccessIter first, RandomAccessIter last, Compare1 comp, Compare2 cmp){
     if (last - first < 2){
@@ -297,13 +342,6 @@ void make_heap(RandomAccessIter first, RandomAccessIter last, Compare1 comp, Com
             return;
         parent--;
     }
-}
-
-template <typename RandomAccessIter>
-void algo_heap_sort(RandomAccessIter begin, RandomAccessIter end) {
-    make_heap(begin, end);
-    while (begin != end)
-        pop_heap(begin, end--);
 }
 
 template <typename RandomAccessIter, typename Compare1, typename Compare2>
