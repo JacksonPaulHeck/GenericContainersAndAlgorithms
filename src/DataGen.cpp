@@ -228,3 +228,19 @@ AlgoVector<AlgoVector<int>> & DataGen::getRand20Int(){
 AlgoVector<AlgoVector<int>> & DataGen::getRand40Int(){
     return this->rand40Int;
 }
+
+AlgoVector<AlgoVector<std::string>> & DataGen::getRand0Str(){
+    return this->rand0Str;
+}
+AlgoVector<AlgoVector<std::string>> & DataGen::getAsc0Str(){
+    return this->asc0Str;
+}
+AlgoVector<AlgoVector<std::string>> & DataGen::getDesc0Str(){
+    return this->desc0Str;
+}
+AlgoVector<AlgoVector<std::string>> & DataGen::getRand20Str(){
+    return this->rand20Str;
+}
+AlgoVector<AlgoVector<std::string>> & DataGen::getRand40Str(){
+    return this->rand40Str;
+}

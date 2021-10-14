@@ -19,6 +19,12 @@ class DataGen {
         AlgoVector<AlgoVector<int>> & getDesc0Int();
         AlgoVector<AlgoVector<int>> & getRand20Int();
         AlgoVector<AlgoVector<int>> & getRand40Int();
+
+        AlgoVector<AlgoVector<std::string>> & getRand0Str();
+        AlgoVector<AlgoVector<std::string>> & getAsc0Str();
+        AlgoVector<AlgoVector<std::string>> & getDesc0Str();
+        AlgoVector<AlgoVector<std::string>> & getRand20Str();
+        AlgoVector<AlgoVector<std::string>> & getRand40Str();
     private:
         std::string dataFile;
         int strLength;
