@@ -18,4 +18,4 @@ endforeach ()
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(${EXE_NAME} src/main.cpp src/DataGen.cpp)
+add_executable(${EXE_NAME} src/main.cpp src/DataGen.cpp src/Driver.cpp)
