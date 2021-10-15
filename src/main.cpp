@@ -7,11 +7,12 @@ int main(int argc, char **argv) {
 
 
   sizes.push_back(1000);
+  sizes.push_back(2500);
   sizes.push_back(5000);
   sizes.push_back(10000);
+  sizes.push_back(25000);
   sizes.push_back(50000);
-  sizes.push_back(100000);
-  sizes.push_back(500000);
+
 
   DataGen heapSortDataGen(sizes);
   DataGen insertionSortDataGen(sizes);
