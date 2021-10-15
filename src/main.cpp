@@ -5,7 +5,9 @@ int main(int argc, char **argv) {
   std::ofstream dataOutput("./output/data.csv");
   AlgoVector<int> sizes;
 
-
+  sizes.push_back(100);
+  sizes.push_back(250);
+  sizes.push_back(500);
   sizes.push_back(1000);
   sizes.push_back(2500);
   sizes.push_back(5000);
