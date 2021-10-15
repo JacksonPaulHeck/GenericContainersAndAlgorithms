@@ -189,7 +189,8 @@ void DataGen::genRandIntPercents(int size, int iteration) {
       intSet20.push_back(rand0Int[iteration][intSet20.size() - 1]);
     }
   }
-  
+  algo_random_shuffle(intSet20.begin(), intSet20.end());
+  algo_random_shuffle(intSet40.begin(), intSet40.end());
   rand20Int.push_back(intSet20);
   rand40Int.push_back(intSet40);
 }
@@ -213,7 +214,9 @@ void DataGen::genRandStrPercents(int size, int iteration) {
       stringSet20.push_back(rand0Str[iteration][stringSet20.size() - 1]);
     }
   }
-  
+  algo_random_shuffle(stringSet20.begin(), stringSet20.end());
+  algo_random_shuffle(stringSet40.begin(), stringSet40.end());
+
   rand20Str.push_back(stringSet20);
   rand40Str.push_back(stringSet40);
 };
