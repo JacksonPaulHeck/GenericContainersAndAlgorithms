@@ -1,16 +1,4 @@
 100, 250, 500, 1000, 2500, 5000
 Insertion Sort Ascending Integer: 
-2.10065, 0.084389, 0.162836, 0.320493, 0.779316, 1.55908, 
+2.14544, 0.087304, 0.164018, 0.326112, 0.79385, 1.6165, 
 Insertion Sort Descending Integer: 
-2.71835, 10.8097, 44.5463, 174.494, 1081.04, 4316.49, 
-Insertion Sort Random Integer: 
-1.53434, 6.85039, 22.3476, 91.1287, 531.507, 2171.18, 
-Insertion Sort Random 20% Integer: 
-1.28838, 4.27382, 18.0535, 68.6427, 406.313, 1657.21, 
-Insertion Sort Random 40% Integer: 
-1.50744, 5.03456, 21.9749, 90.9958, 528.461, 2143.13, 
-Insertion Sort Ascending String: 
-9.71951, 45.3312, 184.181, 746.327, 4560.99, 18232.6, 
-Insertion Sort Descending String: 
-0.828107, 0.193924, 0.364926, 0.726947, 1.82517, 3.60762, 
-Insertion Sort Random String: 

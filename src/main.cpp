@@ -5,6 +5,10 @@ int main(int argc, char **argv) {
   std::ifstream sizesInput(argv[1]);
   std::ofstream dataOutput(argv[2]);
 
+  for(int i = 0; i < sizeof(argv); i++){
+    std::cout << argv[i] << std::endl;
+  }
+
   AlgoVector<int> sizes;
 
   while(!sizesInput.eof()){
