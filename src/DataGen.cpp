@@ -175,18 +175,21 @@ void DataGen::genRandIntPercents(int size, int iteration) {
   AlgoVector<int> intSet40;
 
   //---generate string set---
-  while (intSet20.size() < size && intSet40.size() < size) {
+  while (intSet40.size() < size) {
     intSet40.push_back(rand0Int[iteration][intSet40.size()]);
     if (intSet40.size() % 10 == 1 && intSet40.size() + 3 < size) {
       intSet40.push_back(rand0Int[iteration][intSet40.size() - 1]);
       intSet40.push_back(rand0Int[iteration][intSet40.size() - 2]);
       intSet40.push_back(rand0Int[iteration][intSet40.size() - 3]);
     }
+  }
+  while (intSet20.size() < size) {
     intSet20.push_back(rand0Int[iteration][intSet20.size()]);
     if (intSet20.size() % 5 == 1 && intSet20.size() + 1 < size) {
       intSet20.push_back(rand0Int[iteration][intSet20.size() - 1]);
     }
   }
+  
   rand20Int.push_back(intSet20);
   rand40Int.push_back(intSet40);
 }
@@ -196,18 +199,21 @@ void DataGen::genRandStrPercents(int size, int iteration) {
   AlgoVector<std::string> stringSet40;
 
   //---generate string set---
-  while (stringSet20.size() < size && stringSet40.size() < size) {
+  while (stringSet40.size() < size) {
     stringSet40.push_back(rand0Str[iteration][stringSet40.size()]);
     if (stringSet40.size() % 10 == 1 && stringSet40.size() + 3 < size) {
       stringSet40.push_back(rand0Str[iteration][stringSet40.size() - 1]);
       stringSet40.push_back(rand0Str[iteration][stringSet40.size() - 2]);
       stringSet40.push_back(rand0Str[iteration][stringSet40.size() - 3]);
     }
+  }
+  while (stringSet20.size() < size) {
     stringSet20.push_back(rand0Str[iteration][stringSet20.size()]);
     if (stringSet20.size() % 5 == 1 && stringSet20.size() + 1 < size) {
       stringSet20.push_back(rand0Str[iteration][stringSet20.size() - 1]);
     }
   }
+  
   rand20Str.push_back(stringSet20);
   rand40Str.push_back(stringSet40);
 };
