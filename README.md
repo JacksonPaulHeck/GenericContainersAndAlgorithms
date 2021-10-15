@@ -44,7 +44,7 @@ We ran this algorithm with varying data sizes to collect timing data to analyze 
 
 ## How to Build/Execute
 
-- Navigate into project folder "21f-pa01-jp-and-garretts-cool-kids-team"
+- Navigate into project folder "21f-pa01-jp-and-garretts-cool-kids-team-reloaded"
 - Run `g++ -g src/main.cpp src/DataGen.cpp src/Driver.cpp` to compile the project
 - Run `./a.out test/input.txt output/data.csv` to run the project
 
