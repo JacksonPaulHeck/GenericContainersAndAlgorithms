@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
   while(!sizesInput.eof()){
     std::string line;
     getline(sizesInput, line);
+    std::cout << line << std::endl;
     sizes.push_back(stoi(line));
   }
 
