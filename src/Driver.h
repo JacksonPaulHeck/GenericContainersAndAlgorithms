@@ -46,6 +46,7 @@ void generateInsertionSortData(DataGen &, std::ostream &, AlgoVector<int> &);
 void generateQuickSortData(DataGen &, std::ostream &, AlgoVector<int> &);
 void generateHeapSortData(DataGen &, std::ostream &, AlgoVector<int> &);
 
-bool checkData(DataGen &, DataGen &, DataGen &, std::ostream &, AlgoVector<int> &);
+bool checkData(DataGen &, DataGen &, DataGen &, std::ostream &,
+               AlgoVector<int> &);
 
 void printSizes(AlgoVector<int> &, std::ostream &);
