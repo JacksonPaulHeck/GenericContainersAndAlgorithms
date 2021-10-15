@@ -1,26 +1,55 @@
-#include "DataGen.h"
-#include "Algorithm.h"
+#include "Driver.h"
+#include <fstream>
 
-int main(int argc, char** argv){
+int main(int argc, char **argv) {
+  std::ofstream dataOutput("./output/data.csv");
+  AlgoVector<int> sizes;
 
-    AlgoVector<int> sizes;
-    
-    sizes.push_back(1000);
-    // sizes.push_back(10000);
-    // sizes.push_back(100000);
-    // sizes.push_back(500000);
-    // sizes.push_back(1000000);
-    // sizes.push_back(2000000);
+  sizes.push_back(100);
+  sizes.push_back(250);
+  sizes.push_back(500);
+  sizes.push_back(1000);
+  sizes.push_back(2500);
+  sizes.push_back(5000);
+  sizes.push_back(10000);
+  sizes.push_back(25000);
+  sizes.push_back(50000);
 
-    DataGen dataGen(sizes);
 
-    dataGen.genSets();
+  DataGen heapSortDataGen(sizes);
+  DataGen insertionSortDataGen(sizes);
+  DataGen quickSortDataGen(sizes);
 
-    // dataGen.writeSets();
-    std::cout << "Ascending Result: "<< algo_check_ascending(dataGen.getAsc0Int()[0].begin(), dataGen.getAsc0Int()[0].end()) << std::endl;
-    std::cout << "Random Result: "<< algo_check_random(dataGen.getRand0Int()[0].begin(), dataGen.getRand0Int()[0].end()) << std::endl;
-    std::cout << "Descending Result: "<< algo_check_descending(dataGen.getDesc0Int()[0].begin(), dataGen.getDesc0Int()[0].end()) << std::endl;
-    
+  auto start = std::chrono::high_resolution_clock::now();
+  heapSortDataGen.genSets();
+  insertionSortDataGen.genSets();
+  quickSortDataGen.genSets();
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double, std::milli> float_ms = end - start;
+  std::cout << "\tSets Generated: " << float_ms.count() << " milliseconds"
+            << std::endl;
 
-    return 0;
+  printSizes(sizes, dataOutput);
+
+  std::cout << "\tRunning Insertion Sort" << std::endl;
+  generateInsertionSortData(insertionSortDataGen, dataOutput, sizes);
+
+  std::cout << "\tRunning Quick Sort" << std::endl;
+  generateQuickSortData(quickSortDataGen, dataOutput, sizes);
+
+  std::cout << "\tRunning Heap Sort" << std::endl;
+  generateHeapSortData(heapSortDataGen, dataOutput, sizes);
+  
+  std::cout << "\tChecking Data" << std::endl;
+  bool isSorted = checkData(insertionSortDataGen, quickSortDataGen,
+                            heapSortDataGen, dataOutput, sizes);
+  
+  if(isSorted == true){
+    std::cout << "\tData Sucessfully Sorted" << std::endl;
+  }else{
+    std::cout << "\tData Unsucessfully Sorted" << std::endl;
+  }
+
+
+  return 0;
 }
