@@ -2,22 +2,16 @@
 #include <fstream>
 
 int main(int argc, char **argv) {
-  std::ofstream dataOutput("./output/data.csv");
+  std::ifstream sizesInput(argv[1]);
+  std::ofstream dataOutput(argv[2]);
+
   AlgoVector<int> sizes;
 
-
-  sizes.push_back(100);
-  sizes.push_back(200);
-  sizes.push_back(300);
-  sizes.push_back(400);
-  sizes.push_back(500);
-  sizes.push_back(600);
-  sizes.push_back(700);
-  sizes.push_back(800);
-  sizes.push_back(900);
-  sizes.push_back(1000);
-  sizes.push_back(2000);
-  sizes.push_back(3000);
+  while(!sizesInput.eof()){
+    std::string line;
+    getline(sizesInput, line);
+    sizes.push_back(stoi(line));
+  }
 
   DataGen heapSortDataGen(sizes);
   DataGen insertionSortDataGen(sizes);
@@ -47,14 +41,12 @@ int main(int argc, char **argv) {
   bool isSorted = checkData(insertionSortDataGen, quickSortDataGen,
                             heapSortDataGen, dataOutput, sizes);
   
-  if(isSorted){
+  if(isSorted == true){
     std::cout << "\tData Sucessfully Sorted" << std::endl;
   }else{
     std::cout << "\tData Unsucessfully Sorted" << std::endl;
   }
-  insertionSortDataGen.writeSets();
-  quickSortDataGen.writeSets();
-  heapSortDataGen.writeSets();
+
 
   return 0;
 }

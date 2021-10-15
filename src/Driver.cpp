@@ -262,7 +262,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
                                AlgoVector<int> &sizes) {
   outFile << "Insertion Sort Ascending Integer: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortAscInt(data, outFile, j);
     }
   }
@@ -270,7 +270,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Descending Integer: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortDescInt(data, outFile, j);
     }
   }
@@ -278,7 +278,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Random Integer: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortRandomInt(data, outFile, j);
     }
   }
@@ -286,7 +286,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Random 20% Integer: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortRandom20Int(data, outFile, j);
     }
   }
@@ -294,7 +294,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Random 40% Integer: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortRandom40Int(data, outFile, j);
     }
   }
@@ -302,7 +302,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Ascending String: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortAscStr(data, outFile, j);
     }
   }
@@ -310,7 +310,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Descending String: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortDescStr(data, outFile, j);
     }
   }
@@ -318,7 +318,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Random String: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortRandomStr(data, outFile, j);
     }
   }
@@ -326,7 +326,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Random 20% String: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortRandom20Str(data, outFile, j);
     }
   }
@@ -334,7 +334,7 @@ void generateInsertionSortData(DataGen &data, std::ostream &outFile,
 
   outFile << "Insertion Sort Random 40% String: " << std::endl;
   for (int j = 0; j < sizes.size(); j++) {
-    if (sizes[j] <= 1000) {
+    if (sizes[j] <= 5000) {
       insertionSortRandom40Str(data, outFile, j);
     }
   }
